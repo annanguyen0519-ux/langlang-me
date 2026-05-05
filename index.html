@@ -1,235 +1,1037 @@
-
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Trang của mình</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#F5F0E8;--bg2:#EDE8DC;--bg3:#E4DDD0;
-  --ink:#2C2416;--ink2:#6B5E48;--ink3:#9C8E78;
-  --moss:#4A5C3A;--moss-l:#D6DFD0;
-  --amber:#A0732A;--amber-l:#F0E4C8;
-  --rule:rgba(44,36,22,0.12);
+/* ── Reset & Base ── */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  padding-bottom:72px;
 }
-.w{background:var(--bg);max-width:360px;margin:0 auto;border-radius:12px;overflow:hidden;border:0.5px solid var(--rule);font-family:'DM Sans',sans-serif;color:var(--ink)}
-.bar{background:var(--bg);padding:16px 18px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--rule)}
-.logo{font-family:'Lora',serif;font-size:17px;font-weight:400;letter-spacing:-0.3px;color:var(--ink);font-style:italic}
-.logo span{font-style:normal;font-size:11px;font-family:'DM Sans',sans-serif;color:var(--ink3);font-weight:300;margin-left:4px}
-.icon-btn{width:28px;height:28px;border-radius:6px;border:0.5px solid var(--rule);background:var(--bg2);display:flex;align-items:center;justify-content:center;cursor:pointer}
-.tabs{background:var(--bg);display:flex;padding:16px;border-bottom:0.5px solid var(--rule);gap:20px}
-.tab{padding:10px 0;font-size:12px;font-weight:300;color:var(--ink3);cursor:pointer;border-bottom:1.5px solid transparent;letter-spacing:.3px}
-.tab.on{color:var(--moss);border-bottom-color:var(--moss);font-weight:400}
-.intro{padding:18px;background:var(--bg);border-bottom:0.5px solid var(--rule)}
-.intro p{font-size:12px;font-weight:300;color:var(--ink2);line-height:1.75}
+
+/* ── Colour tokens ── */
+:root{
+  --bg:       #F5F0E8;
+  --bg2:      #EDE8DC;
+  --bg3:      #E4DDD0;
+  --ink:      #2C2416;
+  --ink2:     #6B5E48;
+  --ink3:     #9C8E78;
+  --moss:     #4A5C3A;
+  --moss-l:   #D6DFD0;
+  --amber:    #A0732A;
+  --amber-l:  #F0E4C8;
+  --rule:     rgba(44,36,22,0.11);
+  --max:      480px;
+}
+
+/* ── Layout ── */
+.container{max-width:var(--max);margin:0 auto;background:var(--bg);min-height:100vh;position:relative}
+
+/* ── Topbar ── */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:var(--bg);
+  border-bottom:0.5px solid var(--rule);
+  padding:14px 18px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{font-family:'Lora',serif;font-size:18px;font-style:italic;color:var(--ink);cursor:pointer}
+.logo span{font-style:normal;font-size:11px;font-family:'DM Sans',sans-serif;color:var(--ink3);font-weight:300;margin-left:5px}
+.top-right{display:flex;gap:8px}
+.top-btn{
+  width:32px;height:32px;border-radius:6px;
+  border:0.5px solid var(--rule);background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:background .15s;
+}
+.top-btn:hover{background:var(--bg3)}
+
+/* ── Search overlay ── */
+.search-overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(44,36,22,.35);backdrop-filter:blur(4px);
+}
+.search-overlay.open{display:flex;align-items:flex-start;padding-top:60px}
+.search-box{
+  background:var(--bg);width:90%;max-width:420px;margin:0 auto;
+  border-radius:10px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.18);
+}
+.search-input-wrap{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:0.5px solid var(--rule)}
+.search-input{
+  flex:1;border:none;background:transparent;font-size:15px;
+  font-family:'DM Sans',sans-serif;font-weight:300;color:var(--ink);outline:none;
+}
+.search-input::placeholder{color:var(--ink3)}
+.search-results{padding:8px 0;max-height:360px;overflow-y:auto}
+.sr-item{
+  display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;
+  border-bottom:0.5px solid var(--rule);transition:background .1s;
+}
+.sr-item:last-child{border-bottom:none}
+.sr-item:hover{background:var(--bg2)}
+.sr-badge{
+  font-size:9px;padding:2px 7px;border-radius:2px;letter-spacing:.3px;font-weight:400;flex-shrink:0;
+}
+.sr-book{background:var(--moss-l);color:var(--moss)}
+.sr-film{background:var(--amber-l);color:var(--amber)}
+.sr-text{font-family:'Lora',serif;font-size:13px;color:var(--ink);line-height:1.4}
+.sr-sub{font-size:11px;color:var(--ink3);font-weight:300;margin-top:2px}
+.search-empty{padding:24px 16px;text-align:center;font-size:13px;color:var(--ink3);font-weight:300}
+
+/* ── Tabs (Sách / Phim) ── */
+.content-tabs{
+  display:flex;gap:0;padding:0 18px;
+  border-bottom:0.5px solid var(--rule);background:var(--bg);
+  position:sticky;top:57px;z-index:90;
+}
+.ctab{
+  padding:11px 0;font-size:12px;font-weight:300;color:var(--ink3);
+  cursor:pointer;border-bottom:1.5px solid transparent;
+  letter-spacing:.3px;margin-right:22px;transition:color .15s;
+}
+.ctab.on{color:var(--moss);border-bottom-color:var(--moss);font-weight:400}
+
+/* ── Page system ── */
+.page{display:none}
+.page.on{display:block}
+
+/* ── Eyebrow ── */
+.eyebrow{
+  font-size:9px;letter-spacing:1.3px;color:var(--ink3);
+  text-transform:uppercase;font-weight:400;margin-bottom:14px;
+}
+
+/* ── Intro strip ── */
+.intro{padding:16px 18px;border-bottom:0.5px solid var(--rule)}
+.intro p{font-size:13px;font-weight:300;color:var(--ink2);line-height:1.75}
 .intro strong{color:var(--ink);font-weight:400}
-.feat{background:var(--bg);padding:18px;margin-top:6px}
-.eyebrow{font-size:9px;letter-spacing:1.2px;color:var(--ink3);text-transform:uppercase;font-weight:400;margin-bottom:14px}
-.feat-row{display:flex;gap:14px;margin-bottom:14px}
-.book-spine{width:58px;height:84px;border-radius:3px;flex-shrink:0;display:flex;align-items:flex-end;padding:7px 6px;font-size:8.5px;font-weight:400;line-height:1.4;font-family:'Lora',serif;font-style:italic}
+
+/* ── Section wrap ── */
+.section{padding:18px;background:var(--bg);margin-top:6px;border-bottom:0.5px solid var(--rule)}
+.section:last-child{border-bottom:none}
+
+/* ── Section header ── */
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.sec-title{font-size:11px;font-weight:400;letter-spacing:.6px;text-transform:uppercase;color:var(--ink)}
+.sec-link{font-size:11px;color:var(--moss);cursor:pointer;font-weight:300}
+.sec-link:hover{text-decoration:underline}
+
+/* ── Featured Book ── */
+.feat-row{display:flex;gap:14px;margin-bottom:14px;cursor:pointer}
+.book-spine{
+  width:60px;height:86px;border-radius:3px;flex-shrink:0;
+  display:flex;align-items:flex-end;padding:7px 6px;
+  font-size:8.5px;line-height:1.4;font-family:'Lora',serif;font-style:italic;
+  transition:transform .2s;
+}
+.feat-row:hover .book-spine{transform:rotate(-2deg) scale(1.03)}
 .sp-a{background:#6B5E48;color:#EDE8DC}
 .sp-b{background:#4A5C3A;color:#D6DFD0}
 .sp-c{background:#A0732A;color:#F0E4C8}
 .sp-d{background:#3D4F30;color:#D6DFD0}
 .sp-e{background:#7A6040;color:#F0E4C8}
+.sp-f{background:#5C3A3A;color:#F0E4C8}
+.sp-g{background:#2C4A5C;color:#D0E4EF}
 .feat-info{flex:1}
 .feat-from{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:4px}
-.feat-title{font-family:'Lora',serif;font-size:15px;font-weight:400;line-height:1.45;color:var(--ink);margin-bottom:5px}
+.feat-title{font-family:'Lora',serif;font-size:15px;line-height:1.45;color:var(--ink);margin-bottom:5px}
 .feat-date{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:10px}
-.blockquote{font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--ink2);line-height:1.7;padding-left:10px;border-left:1.5px solid var(--moss);margin-bottom:12px}
-.readmore{font-size:11px;color:var(--moss);font-weight:400;letter-spacing:.2px}
-.plist{background:var(--bg);padding:16px 4px;margin-top:6px}
-.plist-head{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:0.5px solid var(--rule)}
-.plist-title{font-size:11px;font-weight:400;letter-spacing:.5px;color:var(--ink);text-transform:uppercase}
-.plist-all{font-size:10px;color:var(--moss);font-weight:300}
-.bpost{display:flex;gap:12px;padding:13px 0;border-bottom:0.5px solid var(--rule)}
-.bpost:last-child{border-bottom:none;padding-bottom:4px}
-.bpost-spine{width:38px;height:56px;border-radius:2px;flex-shrink:0}
-.bpost-body{flex:1}
-.bpost-from{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:2px}
-.bpost-title{font-family:'Lora',serif;font-size:13px;font-weight:400;line-height:1.45;color:var(--ink);margin-bottom:3px}
-.bpost-date{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:5px}
-.bpost-snip{font-size:11px;color:var(--ink2);font-weight:300;line-height:1.6}
-.tags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
-.tag{font-size:9px;padding:2px 8px;border-radius:2px;font-weight:400;letter-spacing:.2px}
-.tag-moss{background:var(--moss-l);color:var(--moss)}
-.tag-amber{background:var(--amber-l);color:var(--amber)}
-.tag-neutral{background:var(--bg3);color:var(--ink2)}
-.film-feat{background:var(--bg);padding:18px;margin-top:6px}
-.film-banner{width:100%;height:120px;border-radius:4px;background:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;padding:14px;margin-bottom:14px;position:relative;overflow:hidden}
-.film-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%)}
-.film-genre{position:absolute;top:10px;left:10px;background:var(--moss);color:#D6DFD0;font-size:9px;padding:3px 9px;border-radius:2px;letter-spacing:.3px;z-index:1}
-.film-banner-title{font-family:'Lora',serif;font-size:17px;font-weight:400;color:#F5F0E8;position:relative;z-index:1;margin-bottom:2px}
-.film-banner-sub{font-size:10px;color:rgba(245,240,232,0.55);font-weight:300;position:relative;z-index:1}
+.blockquote{
+  font-family:'Lora',serif;font-style:italic;font-size:12px;
+  color:var(--ink2);line-height:1.75;
+  padding-left:10px;border-left:1.5px solid var(--moss);margin-bottom:14px;
+}
+.readmore{font-size:11px;color:var(--moss);cursor:pointer;font-weight:400;letter-spacing:.2px}
+.readmore:hover{text-decoration:underline}
+
+/* ── Book post list ── */
+.bp{display:flex;gap:12px;padding:14px 0;border-bottom:0.5px solid var(--rule);cursor:pointer;transition:opacity .15s}
+.bp:last-child{border-bottom:none;padding-bottom:0}
+.bp:hover{opacity:.72}
+.bp-spine{width:40px;height:58px;border-radius:2px;flex-shrink:0}
+.bp-body{flex:1}
+.bp-from{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:2px}
+.bp-title{font-family:'Lora',serif;font-size:13px;line-height:1.45;color:var(--ink);margin-bottom:3px}
+.bp-date{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:5px}
+.bp-snip{font-size:11px;color:var(--ink2);font-weight:300;line-height:1.6}
+
+/* ── Tags ── */
+.tags{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.tag{font-size:9px;padding:2px 8px;border-radius:2px;letter-spacing:.2px;font-weight:400}
+.tm{background:var(--moss-l);color:var(--moss)}
+.ta{background:var(--amber-l);color:var(--amber)}
+.tn{background:var(--bg3);color:var(--ink2)}
+
+/* ── Film banner ── */
+.film-banner{
+  width:100%;height:130px;border-radius:5px;
+  background:var(--ink);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:14px;margin-bottom:14px;position:relative;overflow:hidden;
+  cursor:pointer;
+}
+.film-banner::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 60%);
+}
+.film-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.4}
+.film-genre{
+  position:absolute;top:10px;left:10px;
+  background:var(--moss);color:#D6DFD0;
+  font-size:9px;padding:3px 9px;border-radius:2px;letter-spacing:.3px;z-index:1;
+}
+.film-banner-title{font-family:'Lora',serif;font-size:18px;color:#F5F0E8;position:relative;z-index:1;margin-bottom:3px}
+.film-banner-sub{font-size:10px;color:rgba(245,240,232,.55);font-weight:300;position:relative;z-index:1}
 .film-watched{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:10px}
 .film-body{font-size:13px;font-weight:300;color:var(--ink);line-height:1.8;margin-bottom:10px}
-.film-body .hook{font-family:'Lora',serif;font-style:italic;color:var(--moss);font-weight:400}
+.film-body .hook{font-family:'Lora',serif;font-style:italic;color:var(--moss)}
 .film-chips{display:flex;gap:5px;flex-wrap:wrap}
-.fchip{font-size:9px;padding:3px 9px;border-radius:2px;border:0.5px solid var(--rule);color:var(--ink2);font-weight:300;letter-spacing:.2px;background:var(--bg2)}
-.flist{background:var(--bg);padding:16px 4px;margin-top:6px}
-.fcard{padding:14px 0;border-bottom:0.5px solid var(--rule)}
-.fcard:last-child{border-bottom:none;padding-bottom:4px}
-.fcard-title{font-family:'Lora',serif;font-size:14px;font-weight:400;color:var(--ink);margin-bottom:3px}
+.fchip{
+  font-size:9px;padding:3px 9px;border-radius:2px;
+  border:0.5px solid var(--rule);color:var(--ink2);
+  font-weight:300;letter-spacing:.2px;background:var(--bg2);
+}
+
+/* ── Film card list ── */
+.fcard{padding:14px 0;border-bottom:0.5px solid var(--rule);cursor:pointer;transition:opacity .15s}
+.fcard:last-child{border-bottom:none;padding-bottom:0}
+.fcard:hover{opacity:.72}
+.fcard-title{font-family:'Lora',serif;font-size:14px;color:var(--ink);margin-bottom:3px}
 .fcard-meta{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:8px}
 .fcard-body{font-size:12px;font-weight:300;color:var(--ink2);line-height:1.75}
-.fcard-body .em{color:var(--ink);font-family:'Lora',serif;font-style:italic;font-weight:400}
+.fcard-body .em{color:var(--ink);font-family:'Lora',serif;font-style:italic}
 .fcard-tags{margin-top:7px;display:flex;gap:5px;flex-wrap:wrap}
 
-/* NAV mới */
-.nav{background:var(--bg2);border-top:0.5px solid var(--rule);padding:12px 0 10px;display:flex;justify-content:space-around;margin-top:6px}
-.ni{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:.55;transition:opacity .2s}
-.ni.on{opacity:1}
-.ni svg{display:block}
-.ni-label{font-size:9px;font-weight:300;color:var(--ink2);letter-spacing:.3px}
+/* ── Saved page ── */
+.saved-empty{
+  padding:60px 24px;text-align:center;
+}
+.saved-empty-icon{font-size:32px;margin-bottom:14px;opacity:.4}
+.saved-empty-title{font-family:'Lora',serif;font-size:16px;color:var(--ink);margin-bottom:8px}
+.saved-empty-sub{font-size:12px;color:var(--ink3);font-weight:300;line-height:1.7}
+.saved-item{
+  display:flex;gap:12px;padding:14px 0;
+  border-bottom:0.5px solid var(--rule);
+  cursor:pointer;transition:opacity .15s;
+}
+.saved-item:last-child{border-bottom:none}
+.saved-item:hover{opacity:.7}
+.saved-thumb{width:44px;height:58px;border-radius:3px;flex-shrink:0}
+.saved-body{flex:1}
+.saved-type{font-size:9px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:3px}
+.saved-title{font-family:'Lora',serif;font-size:13px;line-height:1.4;color:var(--ink);margin-bottom:3px}
+.saved-sub{font-size:11px;color:var(--ink3);font-weight:300}
+.save-btn{
+  background:none;border:0.5px solid var(--rule);border-radius:4px;
+  padding:3px 10px;font-size:10px;font-family:'DM Sans',sans-serif;
+  color:var(--ink3);cursor:pointer;align-self:flex-start;transition:all .15s;
+}
+.save-btn:hover,.save-btn.saved{background:var(--moss-l);color:var(--moss);border-color:var(--moss)}
+
+/* ── About page ── */
+.about-header{padding:28px 18px 20px;border-bottom:0.5px solid var(--rule);text-align:center}
+.about-avatar{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,var(--moss),var(--amber));
+  margin:0 auto 14px;display:flex;align-items:center;justify-content:center;
+  font-family:'Lora',serif;font-style:italic;font-size:26px;color:#F5F0E8;
+}
+.about-name{font-family:'Lora',serif;font-size:20px;color:var(--ink);margin-bottom:5px}
+.about-tagline{font-size:12px;color:var(--ink3);font-weight:300;line-height:1.6}
+.about-section{padding:18px;border-bottom:0.5px solid var(--rule)}
+.about-label{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.about-text{font-size:13px;font-weight:300;color:var(--ink2);line-height:1.8}
+.about-text p{margin-bottom:10px}
+.about-text p:last-child{margin-bottom:0}
+.about-text em{font-family:'Lora',serif;font-style:italic;color:var(--ink)}
+.stat-row{display:flex;gap:0;margin-top:6px}
+.stat{flex:1;text-align:center;padding:14px 0}
+.stat-num{font-family:'Lora',serif;font-size:22px;color:var(--ink);margin-bottom:3px}
+.stat-label{font-size:10px;color:var(--ink3);font-weight:300;letter-spacing:.3px}
+.stat+.stat{border-left:0.5px solid var(--rule)}
+
+/* ── Article detail view ── */
+.article-view{display:none;position:fixed;inset:0;z-index:150;background:var(--bg);overflow-y:auto}
+.article-view.open{display:block}
+.article-topbar{
+  position:sticky;top:0;background:var(--bg);
+  border-bottom:0.5px solid var(--rule);
+  padding:14px 18px;display:flex;align-items:center;gap:12px;z-index:10;
+}
+.back-btn{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--ink3);cursor:pointer;font-weight:300;
+}
+.back-btn:hover{color:var(--moss)}
+.article-body{max-width:var(--max);margin:0 auto;padding:24px 18px 48px}
+.article-badge{display:inline-block;font-size:9px;padding:3px 9px;border-radius:2px;letter-spacing:.4px;margin-bottom:14px}
+.article-from{font-size:11px;color:var(--ink3);font-weight:300;margin-bottom:8px}
+.article-h1{font-family:'Lora',serif;font-size:22px;line-height:1.4;color:var(--ink);margin-bottom:8px}
+.article-meta{font-size:11px;color:var(--ink3);font-weight:300;margin-bottom:20px;padding-bottom:20px;border-bottom:0.5px solid var(--rule)}
+.article-content p{font-size:14px;font-weight:300;color:var(--ink2);line-height:1.85;margin-bottom:16px}
+.article-content h2{font-family:'Lora',serif;font-size:17px;color:var(--ink);margin:24px 0 10px}
+.article-content blockquote{
+  font-family:'Lora',serif;font-style:italic;font-size:14px;
+  color:var(--ink2);line-height:1.75;
+  border-left:1.5px solid var(--moss);padding-left:14px;
+  margin:20px 0;
+}
+.article-content strong{color:var(--ink);font-weight:400}
+.article-save{
+  margin-top:28px;padding-top:20px;border-top:0.5px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.article-save-text{font-size:12px;color:var(--ink3);font-weight:300}
+.article-save-btn{
+  background:var(--bg2);border:0.5px solid var(--rule);border-radius:4px;
+  padding:7px 16px;font-size:11px;font-family:'DM Sans',sans-serif;
+  color:var(--ink2);cursor:pointer;transition:all .15s;
+}
+.article-save-btn:hover,.article-save-btn.saved{
+  background:var(--moss-l);color:var(--moss);border-color:var(--moss);
+}
+
+/* ── All list page ── */
+.list-view{display:none;position:fixed;inset:0;z-index:140;background:var(--bg);overflow-y:auto}
+.list-view.open{display:block}
+.list-topbar{
+  position:sticky;top:0;background:var(--bg);
+  border-bottom:0.5px solid var(--rule);
+  padding:14px 18px;display:flex;align-items:center;gap:12px;z-index:10;
+}
+.list-title{font-size:14px;font-weight:400;color:var(--ink)}
+.list-body{max-width:var(--max);margin:0 auto;padding:0 18px}
+.filter-row{display:flex;gap:6px;padding:14px 0;border-bottom:0.5px solid var(--rule);flex-wrap:wrap}
+.filter-btn{
+  font-size:10px;padding:4px 11px;border-radius:2px;cursor:pointer;
+  border:0.5px solid var(--rule);background:var(--bg2);color:var(--ink3);
+  transition:all .15s;font-weight:300;letter-spacing:.2px;
+}
+.filter-btn.on{background:var(--moss-l);color:var(--moss);border-color:var(--moss)}
+
+/* ── Bottom nav ── */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:var(--max);
+  background:var(--bg2);border-top:0.5px solid var(--rule);
+  display:flex;justify-content:space-around;
+  padding:10px 0 max(10px, env(safe-area-inset-bottom));
+  z-index:100;
+}
+.ni{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  cursor:pointer;padding:0 16px;
+}
+.ni svg{display:block;transition:opacity .15s}
+.ni .ni-label{font-size:9px;font-weight:300;color:var(--ink3);letter-spacing:.3px;transition:color .15s}
 .ni.on .ni-label{color:var(--moss);font-weight:400}
+.ni svg path,.ni svg circle{stroke:var(--ink3);transition:stroke .15s}
+.ni.on svg path,.ni.on svg circle{stroke:var(--moss)}
 
-.pane{display:none}.pane.on{display:block}
+/* ── Utility ── */
+.divider{height:6px;background:var(--bg2);border-top:0.5px solid var(--rule);border-bottom:0.5px solid var(--rule)}
 </style>
+</head>
+<body>
+<div class="container">
 
-<div class="w">
-  <div class="bar">
-    <div class="logo">trang của mình <span>/ một góc nhỏ</span></div>
-    <div class="icon-btn">
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#9C8E78" stroke-width="1.4"/><path d="M10 10L13.5 13.5" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round"/></svg>
-    </div>
-  </div>
-
-  <div class="tabs">
-    <div class="tab on" id="tab-book" onclick="sw('book')">Một chút từ sách</div>
-    <div class="tab" id="tab-film" onclick="sw('film')">Một ít từ phim</div>
-  </div>
-
-  <div class="pane on" id="pane-book">
-    <div class="intro"><p>Những gì mình đọc thấy đáng nghĩ — <strong>chắt lọc lại để chia sẻ.</strong> Không tóm tắt, chỉ là những ý mình thấy có giá trị.</p></div>
-    <div class="feat">
-      <div class="eyebrow">Mới nhất</div>
-      <div class="feat-row">
-        <div class="book-spine sp-a">Thinking,<br>Fast &amp;<br>Slow</div>
-        <div class="feat-info">
-          <div class="feat-from">Daniel Kahneman</div>
-          <div class="feat-title">Tại sao chúng ta tin vào điều mình muốn tin?</div>
-          <div class="feat-date">28/04/2025</div>
-        </div>
-      </div>
-      <div class="blockquote">Não bộ không tìm kiếm sự thật — nó tìm kiếm sự nhất quán. Và đó là lý do chúng ta rất giỏi tự lừa mình.</div>
-      <a href="thinking-fast-slow.html" class="readmore">Đọc tiếp → </a>
-    </div>
-    <div class="plist">
-      <div class="plist-head"><div class="plist-title">Các bài khác</div><div class="plist-all">Xem tất cả</div></div>
-      <div class="bpost">
-        <div class="bpost-spine sp-b"></div>
-        <div class="bpost-body">
-          <div class="bpost-from">Sapiens · Harari</div>
-          <div class="bpost-title">Tiền tệ là gì nếu không phải là niềm tin tập thể?</div>
-          <div class="bpost-date">15/03/2025</div>
-          <div class="bpost-snip">Một đoạn mình đọc xong cứ ngồi ngẩn người mãi...</div>
-          <div class="tags"><span class="tag tag-moss">Lịch sử</span><span class="tag tag-moss">Triết học</span></div>
-        </div>
-      </div>
-      <div class="bpost">
-        <div class="bpost-spine sp-e"></div>
-        <div class="bpost-body">
-          <div class="bpost-from">Ikigai · García & Miralles</div>
-          <div class="bpost-title">Mục đích sống không phải thứ bạn tìm — mà là thứ bạn sống ra</div>
-          <div class="bpost-date">02/02/2025</div>
-          <div class="bpost-snip">Người Okinawa không có từ nào tương đương "về hưu"...</div>
-          <div class="tags"><span class="tag tag-amber">Lối sống</span></div>
-        </div>
-      </div>
-      <div class="bpost">
-        <div class="bpost-spine sp-d"></div>
-        <div class="bpost-body">
-          <div class="bpost-from">Atomic Habits · Clear</div>
-          <div class="bpost-title">Bản sắc trước, thói quen sau — bạn đang làm ngược rồi</div>
-          <div class="bpost-date">10/01/2025</div>
-          <div class="bpost-snip">Thay vì "tôi muốn chạy bộ", hãy nói "tôi là người chạy bộ"...</div>
-          <div class="tags"><span class="tag tag-neutral">Tâm lý học</span></div>
-        </div>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo" onclick="goHome()">trang của mình <span>/ một góc nhỏ</span></div>
+    <div class="top-right">
+      <div class="top-btn" onclick="openSearch()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="#9C8E78" stroke-width="1.4"/><path d="M15 15L21 21" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round"/></svg>
       </div>
     </div>
   </div>
 
-  <div class="pane" id="pane-film">
-    <div class="intro"><p>Không chấm điểm, không so sánh — chỉ là <strong>mình xem xong và nghĩ gì.</strong> Đôi khi đồng ý với đạo diễn, đôi khi không.</p></div>
-    <div class="film-feat">
-      <div class="eyebrow">Gần đây mình xem</div>
-      <div class="film-banner">
-        <div class="film-genre">Thiên nhiên</div>
-        <div class="film-banner-title">My Octopus Teacher</div>
-        <div class="film-banner-sub">2020 · Netflix · 85 phút</div>
+  <!-- CONTENT TABS — chỉ hiển thị khi ở trang chủ -->
+  <div class="content-tabs" id="contentTabs">
+    <div class="ctab on" id="ctab-book" onclick="switchContent('book')">Một chút từ sách</div>
+    <div class="ctab" id="ctab-film" onclick="switchContent('film')">Một ít từ phim</div>
+  </div>
+
+  <!-- ════════════════════════════
+       TRANG CHỦ
+  ════════════════════════════ -->
+  <div class="page on" id="page-home">
+
+    <!-- ── SÁCH ── -->
+    <div class="page on" id="content-book">
+
+      <div class="intro">
+        <p>Những gì mình đọc thấy đáng nghĩ — <strong>chắt lọc lại để chia sẻ.</strong> Không tóm tắt, chỉ là những ý mình thấy có giá trị.</p>
       </div>
-      <div class="film-watched">Xem ngày 01/05/2025</div>
-      <div class="film-body"><span class="hook">Mình không nghĩ một con bạch tuộc lại khiến mình khóc.</span> Bộ phim không cố thuyết phục bạn bảo vệ môi trường — nó chỉ để bạn ngồi nhìn, và tự cảm nhận. Có lẽ đó là cách hiệu quả nhất.</div>
-      <div class="film-chips">
-        <span class="fchip">Khiến mình im lặng</span>
-        <span class="fchip">Nên xem một mình</span>
-        <span class="fchip">Netflix</span>
+
+      <div class="section">
+        <div class="eyebrow">Mới nhất</div>
+        <div class="feat-row" onclick="openArticle('book','think-fast')">
+          <div class="book-spine sp-a">Thinking,<br>Fast &amp;<br>Slow</div>
+          <div>
+            <div class="feat-from">Daniel Kahneman</div>
+            <div class="feat-title">Tại sao chúng ta tin vào điều mình muốn tin?</div>
+            <div class="feat-date">28/04/2025</div>
+          </div>
+        </div>
+        <div class="blockquote">Não bộ không tìm kiếm sự thật — nó tìm kiếm sự nhất quán. Và đó là lý do chúng ta rất giỏi tự lừa mình.</div>
+        <div class="readmore" onclick="openArticle('book','think-fast')">Đọc tiếp →</div>
       </div>
+
+      <div class="section">
+        <div class="sec-head">
+          <div class="sec-title">Các bài khác</div>
+          <div class="sec-link" onclick="openList('book')">Xem tất cả</div>
+        </div>
+        <div class="bp" onclick="openArticle('book','sapiens')">
+          <div class="bp-spine sp-b"></div>
+          <div class="bp-body">
+            <div class="bp-from">Sapiens · Harari</div>
+            <div class="bp-title">Tiền tệ là gì nếu không phải là niềm tin tập thể?</div>
+            <div class="bp-date">15/03/2025</div>
+            <div class="bp-snip">Một đoạn mình đọc xong cứ ngồi ngẩn người mãi...</div>
+            <div class="tags"><span class="tag tm">Lịch sử</span><span class="tag tm">Triết học</span></div>
+          </div>
+        </div>
+        <div class="bp" onclick="openArticle('book','ikigai')">
+          <div class="bp-spine sp-e"></div>
+          <div class="bp-body">
+            <div class="bp-from">Ikigai · García & Miralles</div>
+            <div class="bp-title">Mục đích sống không phải thứ bạn tìm — mà là thứ bạn sống ra</div>
+            <div class="bp-date">02/02/2025</div>
+            <div class="bp-snip">Người Okinawa không có từ nào tương đương "về hưu"...</div>
+            <div class="tags"><span class="tag ta">Lối sống</span></div>
+          </div>
+        </div>
+        <div class="bp" onclick="openArticle('book','atomic')">
+          <div class="bp-spine sp-d"></div>
+          <div class="bp-body">
+            <div class="bp-from">Atomic Habits · Clear</div>
+            <div class="bp-title">Bản sắc trước, thói quen sau — bạn đang làm ngược rồi</div>
+            <div class="bp-date">10/01/2025</div>
+            <div class="bp-snip">Thay vì "tôi muốn chạy bộ", hãy nói "tôi là người chạy bộ"...</div>
+            <div class="tags"><span class="tag tn">Tâm lý học</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end content-book -->
+
+    <!-- ── PHIM ── -->
+    <div class="page" id="content-film">
+
+      <div class="intro">
+        <p>Không chấm điểm, không so sánh — chỉ là <strong>mình xem xong và nghĩ gì.</strong> Đôi khi đồng ý với đạo diễn, đôi khi không.</p>
+      </div>
+
+      <div class="section">
+        <div class="eyebrow">Gần đây mình xem</div>
+        <div class="film-banner" onclick="openArticle('film','octopus')">
+          <div class="film-genre">Thiên nhiên</div>
+          <div class="film-banner-title">My Octopus Teacher</div>
+          <div class="film-banner-sub">2020 · Netflix · 85 phút</div>
+        </div>
+        <div class="film-watched">Xem ngày 01/05/2025</div>
+        <div class="film-body">
+          <span class="hook">Mình không nghĩ một con bạch tuộc lại khiến mình khóc.</span> Bộ phim không cố thuyết phục bạn bảo vệ môi trường — nó chỉ để bạn ngồi nhìn, và tự cảm nhận. Có lẽ đó là cách hiệu quả nhất.
+        </div>
+        <div class="film-chips">
+          <span class="fchip">Khiến mình im lặng</span>
+          <span class="fchip">Nên xem một mình</span>
+          <span class="fchip">Netflix</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sec-head">
+          <div class="sec-title">Những phim đã xem</div>
+          <div class="sec-link" onclick="openList('film')">Xem tất cả</div>
+        </div>
+        <div class="fcard" onclick="openArticle('film','social')">
+          <div class="fcard-title">The Social Dilemma</div>
+          <div class="fcard-meta">Xem ngày 14/04/2025 · Công nghệ</div>
+          <div class="fcard-body">Xem xong mình xóa notification của hầu hết app. <span class="em">Không phải vì sợ — mà vì mình không muốn bị dắt mũi nữa.</span></div>
+          <div class="fcard-tags"><span class="tag tn">Gây khó chịu theo hướng tốt</span></div>
+        </div>
+        <div class="fcard" onclick="openArticle('film','13th')">
+          <div class="fcard-title">13th</div>
+          <div class="fcard-meta">Xem ngày 22/02/2025 · Xã hội</div>
+          <div class="fcard-body"><span class="em">Mình xem mà liên tục phải dừng lại để thở.</span> Không phải vì nó quá nặng — mà vì nó quá rõ ràng, và cái rõ ràng đó mới đáng sợ.</div>
+          <div class="fcard-tags"><span class="tag tm">Netflix</span></div>
+        </div>
+        <div class="fcard" onclick="openArticle('film','freesolo')">
+          <div class="fcard-title">Free Solo</div>
+          <div class="fcard-meta">Xem ngày 05/01/2025 · Thể thao</div>
+          <div class="fcard-body">Câu hỏi phim để lại không phải "anh ấy có điên không" — mà là <span class="em">ranh giới giữa đam mê và liều lĩnh nằm ở đâu?</span> Mình vẫn chưa trả lời được.</div>
+          <div class="fcard-tags"><span class="tag ta">Triết lý sống</span></div>
+        </div>
+      </div>
+
+    </div><!-- end content-film -->
+
+  </div><!-- end page-home -->
+
+  <!-- ════════════════════════════
+       TRANG TÌM KIẾM
+  ════════════════════════════ -->
+  <div class="page" id="page-search">
+    <div class="intro" style="margin-top:6px">
+      <p>Tìm kiếm bài viết, phim, hay từ khoá bất kỳ...</p>
     </div>
-    <div class="flist">
-      <div class="plist-head"><div class="plist-title">Những phim đã xem</div><div class="plist-all">Xem tất cả</div></div>
-      <div class="fcard">
-        <div class="fcard-title">The Social Dilemma</div>
-        <div class="fcard-meta">Xem ngày 14/04/2025 · Công nghệ</div>
-        <div class="fcard-body">Xem xong mình xóa notification của hầu hết app. <span class="em">Không phải vì sợ — mà vì mình không muốn bị dắt mũi nữa.</span></div>
-        <div class="fcard-tags"><span class="tag tag-neutral">Gây khó chịu theo hướng tốt</span></div>
+    <div class="section" style="padding:14px 18px">
+      <div style="display:flex;align-items:center;gap:10px;background:var(--bg2);border-radius:6px;border:0.5px solid var(--rule);padding:10px 14px;margin-bottom:16px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="#9C8E78" stroke-width="1.4"/><path d="M15 15L21 21" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <input id="inlineSearch" placeholder="Nhập từ khoá..." oninput="doInlineSearch(this.value)"
+          style="flex:1;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;color:var(--ink);outline:none">
       </div>
-      <div class="fcard">
-        <div class="fcard-title">13th</div>
-        <div class="fcard-meta">Xem ngày 22/02/2025 · Xã hội</div>
-        <div class="fcard-body"><span class="em">Mình xem mà liên tục phải dừng lại để thở.</span> Không phải vì nó quá nặng — mà vì nó quá rõ ràng, và cái rõ ràng đó mới đáng sợ.</div>
-        <div class="fcard-tags"><span class="tag tag-moss">Netflix</span></div>
-      </div>
-      <div class="fcard">
-        <div class="fcard-title">Free Solo</div>
-        <div class="fcard-meta">Xem ngày 05/01/2025 · Thể thao</div>
-        <div class="fcard-body">Câu hỏi phim để lại không phải "anh ấy có điên không" — mà là <span class="em">ranh giới giữa đam mê và liều lĩnh nằm ở đâu?</span> Mình vẫn chưa trả lời được.</div>
-        <div class="fcard-tags"><span class="tag tag-amber">Triết lý sống</span></div>
+      <div id="inlineResults"></div>
+      <div id="inlineHint" style="text-align:center;padding:20px 0;font-size:12px;color:var(--ink3);font-weight:300">Gõ để tìm kiếm bài viết và phim...</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════
+       TRANG LƯU LẠI
+  ════════════════════════════ -->
+  <div class="page" id="page-saved">
+    <div class="intro" style="margin-top:6px">
+      <p>Những bài bạn đã <strong>lưu lại</strong> để đọc sau.</p>
+    </div>
+    <div class="section" id="savedContent">
+      <div class="saved-empty">
+        <div class="saved-empty-icon">🔖</div>
+        <div class="saved-empty-title">Chưa có gì được lưu</div>
+        <div class="saved-empty-sub">Khi đọc bài nào thấy hay, nhấn "Lưu lại"<br>để xem lại sau ở đây.</div>
       </div>
     </div>
   </div>
 
-  <!-- NAV với SVG icon vẽ tay -->
-  <div class="nav">
-    <div class="ni on" onclick="setNav(this)">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M3 9.5L10 3.5L17 9.5V17H13V13H7V17H3V9.5Z" stroke="#4A5C3A" stroke-width="1.2" stroke-linejoin="round"/>
-      </svg>
-      <div class="ni-label">trang chủ</div>
+  <!-- ════════════════════════════
+       TRANG VỀ MÌNH
+  ════════════════════════════ -->
+  <div class="page" id="page-about">
+    <div class="about-header">
+      <div class="about-avatar">m</div>
+      <div class="about-name">trang của mình</div>
+      <div class="about-tagline">Đọc sách, xem phim tài liệu<br>và viết lại những gì mình nghĩ</div>
     </div>
-    <div class="ni" onclick="setNav(this)">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <circle cx="9" cy="9" r="5.5" stroke="#6B5E48" stroke-width="1.2"/>
-        <path d="M13.5 13.5L17 17" stroke="#6B5E48" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      <div class="ni-label">tìm kiếm</div>
+
+    <div class="section" style="padding:0 18px">
+      <div class="stat-row">
+        <div class="stat"><div class="stat-num" id="statBooks">4</div><div class="stat-label">bài sách</div></div>
+        <div class="stat"><div class="stat-num" id="statFilms">4</div><div class="stat-label">phim đã xem</div></div>
+        <div class="stat"><div class="stat-num" id="statSaved">0</div><div class="stat-label">đã lưu</div></div>
+      </div>
     </div>
-    <div class="ni" onclick="setNav(this)">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M5 3.5H15V17.5L10 14.5L5 17.5V3.5Z" stroke="#6B5E48" stroke-width="1.2" stroke-linejoin="round"/>
-      </svg>
-      <div class="ni-label">lưu lại</div>
+
+    <div class="about-section">
+      <div class="about-label">Về trang này</div>
+      <div class="about-text">
+        <p>Đây là nơi mình chia sẻ những gì mình học được từ sách và phim tài liệu. Không phải review chuyên nghiệp, không phải tóm tắt — chỉ là <em>những ý tưởng mình thấy đáng nghĩ lại</em>.</p>
+        <p>Mình tin rằng một ý tưởng hay, được đặt đúng chỗ, có thể thay đổi cách nhìn của một người. Và đó là lý do mình viết.</p>
+      </div>
     </div>
-    <div class="ni" onclick="setNav(this)">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <circle cx="10" cy="7.5" r="3" stroke="#6B5E48" stroke-width="1.2"/>
-        <path d="M3.5 17C3.5 14 6.5 11.5 10 11.5C13.5 11.5 16.5 14 16.5 17" stroke="#6B5E48" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
-      <div class="ni-label">về mình</div>
+
+    <div class="about-section">
+      <div class="about-label">Hay đọc về</div>
+      <div class="tags" style="margin-top:0">
+        <span class="tag tm">Tâm lý học</span>
+        <span class="tag tm">Triết học</span>
+        <span class="tag ta">Lối sống</span>
+        <span class="tag ta">Khoa học</span>
+        <span class="tag tn">Lịch sử</span>
+        <span class="tag tn">Xã hội</span>
+      </div>
+    </div>
+
+    <div class="about-section" style="border-bottom:none">
+      <div class="about-label">Liên hệ</div>
+      <div class="about-text">
+        <p>Nếu bạn có quyển sách hay bộ phim muốn gợi ý, hoặc chỉ muốn chia sẻ suy nghĩ — mình rất vui được nghe.</p>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <span class="fchip" style="cursor:pointer">📧 email: khnghi93@gmail.com</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end container -->
+
+<!-- ════════════════════════════
+     ARTICLE DETAIL VIEW
+════════════════════════════ -->
+<div class="article-view" id="articleView">
+  <div class="article-topbar">
+    <div class="back-btn" onclick="closeArticle()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l7-7M5 12l7 7" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Quay lại
+    </div>
+  </div>
+  <div class="article-body" id="articleBody"></div>
+</div>
+
+<!-- ════════════════════════════
+     LIST ALL VIEW
+════════════════════════════ -->
+<div class="list-view" id="listView">
+  <div class="list-topbar">
+    <div class="back-btn" onclick="closeList()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12l7-7M5 12l7 7" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="list-title" id="listTitle"></div>
+  </div>
+  <div class="list-body">
+    <div class="filter-row" id="filterRow"></div>
+    <div id="listContent" style="padding-bottom:80px"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════
+     SEARCH OVERLAY
+════════════════════════════ -->
+<div class="search-overlay" id="searchOverlay" onclick="closeSearchIfOutside(event)">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="#9C8E78" stroke-width="1.4"/><path d="M15 15L21 21" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input class="search-input" id="searchInput" placeholder="Tìm bài viết, phim..." oninput="doSearch(this.value)">
+    </div>
+    <div class="search-results" id="searchResults">
+      <div class="search-empty">Gõ để tìm kiếm...</div>
     </div>
   </div>
 </div>
 
+<!-- ════════════════════════════
+     BOTTOM NAV
+════════════════════════════ -->
+<div class="bottom-nav">
+  <div class="ni on" id="nav-home" onclick="goNav('home')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M3 11L12 3l9 8" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5 10v10a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1V10" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="ni-label">trang chủ</div>
+  </div>
+  <div class="ni" id="nav-search" onclick="goNav('search')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="10.5" cy="10.5" r="6.5" stroke="#9C8E78" stroke-width="1.4"/>
+      <path d="M15.5 15.5L21 21" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    <div class="ni-label">tìm kiếm</div>
+  </div>
+  <div class="ni" id="nav-saved" onclick="goNav('saved')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M6 3h12a1 1 0 011 1v16l-7-4-7 4V4a1 1 0 011-1z" stroke="#9C8E78" stroke-width="1.4" stroke-linejoin="round"/>
+    </svg>
+    <div class="ni-label">lưu lại</div>
+  </div>
+  <div class="ni" id="nav-about" onclick="goNav('about')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="8" r="3.5" stroke="#9C8E78" stroke-width="1.4"/>
+      <path d="M4.5 20.5c0-3.5 3.4-6.5 7.5-6.5s7.5 3 7.5 6.5" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    <div class="ni-label">về mình</div>
+  </div>
+</div>
+
 <script>
-function sw(t){
-  document.querySelectorAll('.tab,.pane').forEach(e=>e.classList.remove('on'));
-  document.getElementById('tab-'+t).classList.add('on');
-  document.getElementById('pane-'+t).classList.add('on');
+// ── Data ──────────────────────────────────────────────
+const DATA = {
+  book: [
+    {
+      id:'think-fast', spine:'sp-a', spineText:'Thinking,\nFast &\nSlow',
+      from:'Daniel Kahneman', title:'Tại sao chúng ta tin vào điều mình muốn tin?',
+      date:'28/04/2025', tags:['Tâm lý học','Triết học'],
+      snip:'Não bộ không tìm kiếm sự thật — nó tìm kiếm sự nhất quán.',
+      content:`
+        <p>Có một thí nghiệm đơn giản mà Kahneman mô tả trong cuốn sách: người ta được hỏi "Có bao nhiêu quốc gia ở Châu Phi?" — nhưng trước khi trả lời, họ phải quay một cái bánh xe số ngẫu nhiên. Nếu bánh xe dừng ở số 10, câu trả lời trung bình là 25. Nếu dừng ở 65, câu trả lời trung bình là 45. <strong>Một con số hoàn toàn ngẫu nhiên đã ảnh hưởng đến phán đoán của họ.</strong></p>
+        <h2>Hệ thống 1 và Hệ thống 2</h2>
+        <p>Kahneman chia cách não bộ vận hành thành hai hệ thống. Hệ thống 1 là tự động, nhanh, cảm xúc — nó luôn chạy nền và đưa ra phán đoán tức thì. Hệ thống 2 là chậm, có chủ ý, logic — nhưng nó lười biếng và chỉ được kích hoạt khi thực sự cần.</p>
+        <p>Vấn đề là: <strong>hầu hết thời gian chúng ta tưởng mình đang dùng Hệ thống 2, nhưng thực ra Hệ thống 1 đã quyết định trước rồi.</strong> Hệ thống 2 chỉ đến sau để hợp lý hoá.</p>
+        <blockquote>Não bộ không tìm kiếm sự thật — nó tìm kiếm sự nhất quán. Và đó là lý do chúng ta rất giỏi tự lừa mình.</blockquote>
+        <h2>Mình thấy đáng sợ ở điểm nào</h2>
+        <p>Cái đáng sợ không phải là chúng ta có thể bị thao túng bởi con số ngẫu nhiên. Cái đáng sợ là <strong>chúng ta không nhận ra điều đó đang xảy ra</strong>. Cảm giác chắc chắn — cái feeling "mình biết mình đang làm gì" — hoàn toàn không liên quan đến việc mình có thực sự đúng hay không.</p>
+        <p>Đọc xong chương này, mình bắt đầu để ý hơn mỗi khi mình cảm thấy "rõ ràng là vậy rồi" — vì đó thường là lúc Hệ thống 1 đang nói chuyện thay cho mình.</p>
+      `
+    },
+    {
+      id:'sapiens', spine:'sp-b', spineText:'Sapiens',
+      from:'Yuval Noah Harari', title:'Tiền tệ là gì nếu không phải là niềm tin tập thể?',
+      date:'15/03/2025', tags:['Lịch sử','Triết học'],
+      snip:'Đồng đô la không có giá trị nội tại — nó có giá trị vì mọi người tin rằng người khác cũng tin vào nó.',
+      content:`
+        <p>Harari có một cách đặt câu hỏi rất thú vị: nếu bạn đưa một tờ 100 đô la cho một con tinh tinh, nó sẽ không quan tâm. Nhưng nếu bạn đưa cho một người — dù họ ở bất kỳ đâu trên thế giới — họ sẽ hiểu ngay đây là thứ có giá trị.</p>
+        <h2>Tiền là câu chuyện chúng ta cùng tin</h2>
+        <p>Harari gọi tiền tệ là "hệ thống niềm tin chung được chia sẻ rộng rãi nhất trong lịch sử loài người". Nó không phải là vàng, không phải là giấy — nó là <strong>câu chuyện mà tất cả chúng ta đồng ý là thật</strong>.</p>
+        <blockquote>Đồng đô la không có giá trị nội tại. Nó có giá trị vì mọi người tin rằng người khác cũng tin vào nó — và cái vòng lặp niềm tin đó chính là nền tảng của toàn bộ nền kinh tế.</blockquote>
+        <h2>Điều này nghĩa là gì với mình</h2>
+        <p>Mình ngồi nghĩ về điều này khá lâu. Nếu tiền chỉ là niềm tin, thì rất nhiều thứ khác mà chúng ta xem là "thực tế" — biên giới quốc gia, công ty, luật pháp — cũng chỉ là những câu chuyện chúng ta cùng kể cho nhau. <strong>Sức mạnh của loài người đến từ khả năng tin vào những thứ không tồn tại trong tự nhiên.</strong></p>
+        <p>Đó vừa là điều kỳ diệu, vừa là điều đáng lo — vì câu chuyện có thể thay đổi.</p>
+      `
+    },
+    {
+      id:'ikigai', spine:'sp-e', spineText:'Ikigai',
+      from:'García & Miralles', title:'Mục đích sống không phải thứ bạn tìm — mà là thứ bạn sống ra',
+      date:'02/02/2025', tags:['Lối sống','Triết học'],
+      snip:'Người Okinawa không có từ nào tương đương "về hưu"...',
+      content:`
+        <p>Okinawa, Nhật Bản — một trong những nơi có tỉ lệ người trăm tuổi cao nhất thế giới. Các tác giả đến đó để tìm hiểu tại sao, và một trong những phát hiện thú vị nhất là: <strong>người Okinawa không có từ nào tương đương với "về hưu" trong ngôn ngữ hàng ngày.</strong></p>
+        <h2>Ikigai không phải mục đích lớn</h2>
+        <p>Người phương Tây hay nghĩ về mục đích sống như một thứ gì đó to lớn — sứ mệnh, di sản, ảnh hưởng. Nhưng người Okinawa hiểu ikigai đơn giản hơn nhiều: đó là lý do để thức dậy mỗi sáng. Có thể là làm vườn. Có thể là nấu ăn cho gia đình. Có thể là chơi nhạc mỗi chiều.</p>
+        <blockquote>Ikigai không cần phải vĩ đại. Nó chỉ cần là thật — với bạn, hôm nay, lúc này.</blockquote>
+        <h2>Phần mình thấy hay nhất</h2>
+        <p>Cuốn sách không bảo bạn phải tìm ra "mục đích sống" như một câu trả lời cố định. Thay vào đó, nó gợi ý rằng ikigai là thứ <strong>xuất hiện khi bạn sống đủ chú tâm</strong> — chú ý đến điều gì khiến bạn quên thời gian, điều gì khiến bạn cảm thấy đang đóng góp, điều gì bạn làm không cần lý do.</p>
+        <p>Mình đọc đoạn này và nhận ra mình đã đang tìm ikigai ở tương lai, trong khi nó có thể đã có mặt ở hiện tại — chỉ là mình chưa để ý.</p>
+      `
+    },
+    {
+      id:'atomic', spine:'sp-d', spineText:'Atomic\nHabits',
+      from:'James Clear', title:'Bản sắc trước, thói quen sau — bạn đang làm ngược rồi',
+      date:'10/01/2025', tags:['Tâm lý học','Lối sống'],
+      snip:'Thay vì "tôi muốn chạy bộ", hãy nói "tôi là người chạy bộ"...',
+      content:`
+        <p>Hầu hết chúng ta tiếp cận việc xây dựng thói quen theo hướng: <em>tôi muốn đạt được X, vì vậy tôi sẽ làm Y mỗi ngày</em>. James Clear lập luận rằng đây là sai lầm cơ bản — không phải về kỹ thuật, mà về <strong>bản sắc</strong>.</p>
+        <h2>Thay đổi từ trong ra ngoài</h2>
+        <p>Thay vì "tôi muốn chạy bộ" (kết quả), hãy bắt đầu từ "tôi là người chạy bộ" (bản sắc). Khi bạn bỏ lỡ một buổi chạy, người có thói quen dựa trên kết quả sẽ cảm thấy thất bại. Người có thói quen dựa trên bản sắc sẽ nghĩ: <strong>"Điều này không nhất quán với con người mình là."</strong></p>
+        <blockquote>Mỗi hành động bạn thực hiện là một phiếu bầu cho loại người bạn muốn trở thành. Không có phiếu nào là đủ để thay đổi một cuộc bầu cử — nhưng tích lũy đủ phiếu, và câu chuyện sẽ thay đổi.</blockquote>
+        <h2>Áp dụng thực tế</h2>
+        <p>Mình thử áp dụng điều này vào việc viết. Thay vì "mình muốn viết thường xuyên hơn", mình bắt đầu nói với bản thân "mình là người viết". Nghe có vẻ ngớ ngẩn lúc đầu — nhưng nó thay đổi cách mình phản ứng khi lười biếng. <strong>Không phải "thôi bỏ hôm nay" mà là "người viết thì viết, dù chỉ một đoạn ngắn."</strong></p>
+      `
+    }
+  ],
+  film: [
+    {
+      id:'octopus', genre:'Thiên nhiên',
+      title:'My Octopus Teacher', meta:'2020 · Netflix · 85 phút',
+      date:'01/05/2025', tags:['Khiến mình im lặng','Nên xem một mình','Netflix'],
+      snip:'Mình không nghĩ một con bạch tuộc lại khiến mình khóc.',
+      content:`
+        <p>Craig Foster là một nhà làm phim tài liệu người Nam Phi. Sau nhiều năm làm việc kiệt sức, ông bắt đầu lặn xuống đại dương mỗi ngày — không phải để quay phim, mà chỉ để tồn tại. Và ở đó, ông gặp một con bạch tuộc.</p>
+        <h2>Không phải phim về bạch tuộc</h2>
+        <p>Đây không thực sự là phim về bạch tuộc, dù bạch tuộc xuất hiện xuyên suốt và vô cùng kỳ diệu. Đây là phim về <strong>một người đàn ông học cách chú tâm trở lại</strong> — học cách quan sát, kiên nhẫn, và để cho thiên nhiên dạy mình thứ mà con người không thể dạy.</p>
+        <blockquote>Con vật này đã dạy tôi cách trở thành một sinh vật của đại dương — và theo cách nào đó, nó dạy tôi cách trở lại làm người.</blockquote>
+        <h2>Mình nghĩ gì sau khi xem</h2>
+        <p>Có một cảnh con bạch tuộc bị cá tấn công, mất đi một xúc tu — và sau đó từ từ mọc lại. Mình ngồi nhìn và thấy đó là một trong những thứ đẹp nhất mình từng thấy trong phim tài liệu. Không phải vì nó kỳ diệu về mặt sinh học — mà vì <strong>nó nhắc mình rằng hồi phục là điều tự nhiên, không phải ngoại lệ</strong>.</p>
+        <p>Phim này không thuyết phục bạn làm gì. Nó chỉ để bạn ngồi nhìn một sinh vật sống hoàn toàn trong hiện tại — và điều đó, tự nó, đã là đủ.</p>
+      `
+    },
+    {
+      id:'social', genre:'Công nghệ',
+      title:'The Social Dilemma', meta:'2020 · Netflix · 94 phút',
+      date:'14/04/2025', tags:['Gây khó chịu theo hướng tốt','Netflix'],
+      snip:'Xem xong mình xóa notification của hầu hết app.',
+      content:`
+        <p>Phim phỏng vấn những người từng làm việc ở bên trong các mạng xã hội lớn — Google, Facebook, Twitter, Pinterest — và hỏi họ: <em>điều gì khiến bạn lo lắng nhất về thứ bạn đã xây dựng?</em></p>
+        <h2>Thứ mình không ngờ đến</h2>
+        <p>Mình vào xem với kỳ vọng nghe về quảng cáo và dữ liệu — những thứ mình đã biết một phần. Nhưng phần khiến mình thực sự dừng lại là khi họ nói về <strong>mô hình kinh doanh không phải là bán dữ liệu của bạn, mà là bán sự thay đổi hành vi của bạn</strong>.</p>
+        <blockquote>Chúng tôi không bán sản phẩm cho bạn. Chúng tôi bán bạn — khả năng dự đoán và thay đổi hành vi của bạn — cho các nhà quảng cáo.</blockquote>
+        <h2>Mình làm gì sau đó</h2>
+        <p>Xem xong mình tắt notification của hầu hết app. Không phải vì sợ — mà vì mình nhận ra rằng mỗi lần điện thoại rung, <strong>đó không phải là accident, đó là ai đó đã thiết kế để mình nhìn vào màn hình đúng lúc đó</strong>. Và mình không muốn để người khác quyết định khi nào mình tập trung và khi nào mình phân tâm.</p>
+        <p>Phim này không hoàn hảo — có đoạn hơi drama hoá. Nhưng câu hỏi nó đặt ra thì rất thật.</p>
+      `
+    },
+    {
+      id:'13th', genre:'Xã hội',
+      title:'13th', meta:'2016 · Netflix · 100 phút',
+      date:'22/02/2025', tags:['Nặng nhưng cần xem','Netflix'],
+      snip:'Mình xem mà liên tục phải dừng lại để thở.',
+      content:`
+        <p>Tu chính án thứ 13 của Hiến pháp Mỹ bãi bỏ chế độ nô lệ — ngoại trừ "như một hình phạt cho tội ác". Ava DuVernay lấy cái ngoại lệ đó làm điểm xuất phát cho toàn bộ bộ phim.</p>
+        <h2>Lịch sử không biến mất, nó biến hình</h2>
+        <p>Phim theo dõi hành trình từ thời kỳ hậu nô lệ đến hệ thống nhà tù hiện đại ở Mỹ — và chỉ ra rằng <strong>đây không phải là những thứ tách biệt nhau</strong>. Đây là cùng một cơ chế, biến hình qua từng thập kỷ.</p>
+        <blockquote>Nhà tù không phải là giải pháp cho tội ác. Nó là nơi chúng ta cất giữ những người chúng ta đã từ chối giải quyết vấn đề của họ.</blockquote>
+        <h2>Tại sao mình phải dừng lại nhiều lần</h2>
+        <p>Không phải vì nó quá bạo lực hay quá nặng về cảm xúc. Mà vì nó quá rõ ràng. Mỗi lập luận đều có dữ liệu, mỗi cáo buộc đều có bằng chứng lịch sử. <strong>Cái đáng sợ nhất không phải là tội ác — mà là hệ thống được thiết kế để tội ác trông như bình thường.</strong></p>
+        <p>Xem xong mình không biết phải làm gì với cảm giác đó. Nhưng mình nghĩ đó là điều đúng đắn — không phải mọi phim tài liệu đều cần cho bạn câu trả lời.</p>
+      `
+    },
+    {
+      id:'freesolo', genre:'Thể thao',
+      title:'Free Solo', meta:'2018 · National Geographic · 100 phút',
+      date:'05/01/2025', tags:['Triết lý sống','Làm mình không thở được'],
+      snip:'Ranh giới giữa đam mê và liều lĩnh nằm ở đâu?',
+      content:`
+        <p>Alex Honnold leo El Capitan — một vách đá thẳng đứng cao gần 1.000 mét ở Yosemite — không dây, không thiết bị bảo hộ. Một lần trượt tay là chết. Phim theo dõi hành trình chuẩn bị kéo dài nhiều năm cho khoảnh khắc đó.</p>
+        <h2>Câu hỏi phim không trả lời</h2>
+        <p>Phim không cố gắng thuyết phục bạn rằng Alex đúng hay sai. Nó chỉ quan sát — và để bạn tự ngồi với câu hỏi: <strong>điều gì tách biệt đam mê với liều lĩnh? Hay chúng chỉ là cùng một thứ, nhìn từ hai phía khác nhau của kết quả?</strong></p>
+        <blockquote>Nếu anh ấy thành công, chúng ta gọi đó là kỳ tích. Nếu anh ấy thất bại, chúng ta gọi đó là bi kịch. Nhưng quyết định của anh ấy không thay đổi — chỉ có kết quả thay đổi.</blockquote>
+        <h2>Phần mình không ngờ</h2>
+        <p>Phần xúc động nhất không phải cảnh leo núi — mà là những cảnh quay Alex ngồi trong xe, ăn một mình, nói về việc anh ấy không cảm thấy sợ hãi như người bình thường. <strong>Sự cô đơn của một người sống hoàn toàn theo tiêu chuẩn của riêng mình</strong> — nó đẹp và buồn cùng lúc.</p>
+        <p>Mình vẫn chưa trả lời được câu hỏi mà phim đặt ra. Nhưng mình nghĩ đó là dấu hiệu của một bộ phim tài liệu tốt.</p>
+      `
+    }
+  ]
+};
+
+// ── State ──────────────────────────────────────────────
+let savedIds = JSON.parse(localStorage.getItem('saved') || '[]');
+let currentNav = 'home';
+let currentContent = 'book';
+
+// ── Nav ──────────────────────────────────────────────
+function goNav(page) {
+  currentNav = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('on'));
+  document.getElementById('page-' + page).classList.add('on');
+  document.getElementById('nav-' + page).classList.add('on');
+  const tabs = document.getElementById('contentTabs');
+  tabs.style.display = page === 'home' ? 'flex' : 'none';
+  if (page === 'saved') renderSaved();
+  if (page === 'about') updateStats();
+  window.scrollTo(0, 0);
 }
-function setNav(el){
-  document.querySelectorAll('.ni').forEach(e=>e.classList.remove('on'));
-  el.classList.add('on');
-  const stroke = '#4A5C3A';
-  el.querySelectorAll('path,circle').forEach(p=>{p.setAttribute('stroke',stroke)});
-  document.querySelectorAll('.ni:not(.on)').forEach(ni=>{
-    ni.querySelectorAll('path,circle').forEach(p=>p.setAttribute('stroke','#6B5E48'));
+
+function goHome() { goNav('home'); }
+
+// ── Content tabs ──────────────────────────────────────
+function switchContent(t) {
+  currentContent = t;
+  document.querySelectorAll('.ctab').forEach(e => e.classList.remove('on'));
+  document.getElementById('ctab-' + t).classList.add('on');
+  document.getElementById('content-book').classList.remove('on');
+  document.getElementById('content-film').classList.remove('on');
+  document.getElementById('content-' + t).classList.add('on');
+  window.scrollTo(0, 0);
+}
+
+// ── Article ──────────────────────────────────────────
+function openArticle(type, id) {
+  const items = DATA[type];
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  const isSaved = savedIds.includes(id);
+  const badgeClass = type === 'book' ? 'tm' : 'ta';
+  const badgeText = type === 'book' ? 'Sách' : 'Phim tài liệu';
+
+  let headerHtml = '';
+  if (type === 'book') {
+    headerHtml = `
+      <div class="article-badge tag ${badgeClass}">${badgeText}</div>
+      <div class="article-from">${item.from}</div>
+      <div class="article-h1">${item.title}</div>
+      <div class="article-meta">${item.date}</div>
+    `;
+  } else {
+    headerHtml = `
+      <div class="article-badge tag ${badgeClass}">${item.genre}</div>
+      <div class="article-h1">${item.title}</div>
+      <div class="article-meta">Xem ngày ${item.date} · ${item.meta}</div>
+    `;
+  }
+
+  const tagsHtml = item.tags.map(t => `<span class="tag tn">${t}</span>`).join('');
+
+  document.getElementById('articleBody').innerHTML = `
+    ${headerHtml}
+    <div class="tags" style="margin-bottom:20px">${tagsHtml}</div>
+    <div class="article-content">${item.content}</div>
+    <div class="article-save">
+      <div class="article-save-text">Bài này có ích không?</div>
+      <button class="article-save-btn ${isSaved ? 'saved' : ''}" id="saveBtn-${id}" onclick="toggleSave('${id}')">
+        ${isSaved ? '✓ Đã lưu' : '🔖 Lưu lại'}
+      </button>
+    </div>
+  `;
+  document.getElementById('articleView').classList.add('open');
+  document.getElementById('articleView').scrollTop = 0;
+}
+
+function closeArticle() {
+  document.getElementById('articleView').classList.remove('open');
+}
+
+// ── Save ──────────────────────────────────────────────
+function toggleSave(id) {
+  const idx = savedIds.indexOf(id);
+  if (idx === -1) { savedIds.push(id); }
+  else { savedIds.splice(idx, 1); }
+  localStorage.setItem('saved', JSON.stringify(savedIds));
+  const btn = document.getElementById('saveBtn-' + id);
+  if (btn) {
+    const saved = savedIds.includes(id);
+    btn.textContent = saved ? '✓ Đã lưu' : '🔖 Lưu lại';
+    btn.classList.toggle('saved', saved);
+  }
+  updateStats();
+}
+
+function renderSaved() {
+  const container = document.getElementById('savedContent');
+  if (savedIds.length === 0) {
+    container.innerHTML = `
+      <div class="saved-empty">
+        <div class="saved-empty-icon">🔖</div>
+        <div class="saved-empty-title">Chưa có gì được lưu</div>
+        <div class="saved-empty-sub">Khi đọc bài nào thấy hay, nhấn "Lưu lại"<br>để xem lại sau ở đây.</div>
+      </div>`;
+    return;
+  }
+  let html = '';
+  [...DATA.book, ...DATA.film].forEach(item => {
+    if (!savedIds.includes(item.id)) return;
+    const isBook = !!item.from;
+    const type = isBook ? 'book' : 'film';
+    const thumb = item.spine ? `<div class="saved-thumb ${item.spine}"></div>` : `<div class="saved-thumb" style="background:var(--moss);opacity:.7"></div>`;
+    html += `
+      <div class="saved-item" onclick="openArticle('${type}','${item.id}')">
+        ${thumb}
+        <div class="saved-body">
+          <div class="saved-type">${isBook ? 'Sách' : 'Phim tài liệu'}</div>
+          <div class="saved-title">${item.title}</div>
+          <div class="saved-sub">${isBook ? item.from : item.meta}</div>
+        </div>
+      </div>`;
   });
+  container.innerHTML = html;
 }
+
+function updateStats() {
+  document.getElementById('statSaved').textContent = savedIds.length;
+}
+
+// ── List all ──────────────────────────────────────────
+function openList(type) {
+  const isBook = type === 'book';
+  document.getElementById('listTitle').textContent = isBook ? 'Tất cả bài sách' : 'Tất cả phim đã xem';
+  const allTags = [...new Set((DATA[type]).flatMap(i => i.tags))];
+  document.getElementById('filterRow').innerHTML =
+    `<div class="filter-btn on" onclick="filterList('${type}','all',this)">Tất cả</div>` +
+    allTags.map(t => `<div class="filter-btn" onclick="filterList('${type}','${t}',this)">${t}</div>`).join('');
+  renderList(type, 'all');
+  document.getElementById('listView').classList.add('open');
+  document.getElementById('listView').scrollTop = 0;
+}
+
+function filterList(type, tag, el) {
+  document.querySelectorAll('#filterRow .filter-btn').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+  renderList(type, tag);
+}
+
+function renderList(type, tag) {
+  const isBook = type === 'book';
+  const items = DATA[type].filter(i => tag === 'all' || i.tags.includes(tag));
+  let html = '';
+  items.forEach(item => {
+    if (isBook) {
+      const tagsHtml = item.tags.map(t => `<span class="tag tm">${t}</span>`).join('');
+      html += `
+        <div class="bp" onclick="openArticle('book','${item.id}')">
+          <div class="bp-spine ${item.spine}"></div>
+          <div class="bp-body">
+            <div class="bp-from">${item.from}</div>
+            <div class="bp-title">${item.title}</div>
+            <div class="bp-date">${item.date}</div>
+            <div class="bp-snip">${item.snip}</div>
+            <div class="tags">${tagsHtml}</div>
+          </div>
+        </div>`;
+    } else {
+      const tagsHtml = item.tags.map(t => `<span class="fchip">${t}</span>`).join('');
+      html += `
+        <div class="fcard" onclick="openArticle('film','${item.id}')">
+          <div class="fcard-title">${item.title}</div>
+          <div class="fcard-meta">Xem ngày ${item.date} · ${item.genre}</div>
+          <div class="fcard-body">${item.snip}</div>
+          <div class="fcard-tags">${tagsHtml}</div>
+        </div>`;
+    }
+  });
+  if (!html) html = '<div style="padding:24px 0;text-align:center;font-size:13px;color:var(--ink3);font-weight:300">Không có bài nào phù hợp.</div>';
+  document.getElementById('listContent').innerHTML = html;
+}
+
+function closeList() {
+  document.getElementById('listView').classList.remove('open');
+}
+
+// ── Search ──────────────────────────────────────────
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('searchInput').focus(), 100);
+}
+
+function closeSearchIfOutside(e) {
+  if (e.target === document.getElementById('searchOverlay')) {
+    document.getElementById('searchOverlay').classList.remove('open');
+    document.getElementById('searchInput').value = '';
+    document.getElementById('searchResults').innerHTML = '<div class="search-empty">Gõ để tìm kiếm...</div>';
+  }
+}
+
+function doSearch(q) {
+  const res = document.getElementById('searchResults');
+  if (!q.trim()) { res.innerHTML = '<div class="search-empty">Gõ để tìm kiếm...</div>'; return; }
+  const kw = q.toLowerCase();
+  let html = '';
+  DATA.book.forEach(i => {
+    if (i.title.toLowerCase().includes(kw) || i.from.toLowerCase().includes(kw) || i.tags.some(t => t.toLowerCase().includes(kw))) {
+      html += `<div class="sr-item" onclick="closeSearchAndOpen('book','${i.id}')">
+        <span class="sr-badge sr-book">Sách</span>
+        <div><div class="sr-text">${i.title}</div><div class="sr-sub">${i.from}</div></div>
+      </div>`;
+    }
+  });
+  DATA.film.forEach(i => {
+    if (i.title.toLowerCase().includes(kw) || i.genre.toLowerCase().includes(kw) || i.tags.some(t => t.toLowerCase().includes(kw))) {
+      html += `<div class="sr-item" onclick="closeSearchAndOpen('film','${i.id}')">
+        <span class="sr-badge sr-film">Phim</span>
+        <div><div class="sr-text">${i.title}</div><div class="sr-sub">${i.genre} · ${i.meta}</div></div>
+      </div>`;
+    }
+  });
+  res.innerHTML = html || '<div class="search-empty">Không tìm thấy kết quả nào.</div>';
+}
+
+function doInlineSearch(q) {
+  const res = document.getElementById('inlineResults');
+  const hint = document.getElementById('inlineHint');
+  if (!q.trim()) { res.innerHTML = ''; hint.style.display = 'block'; return; }
+  hint.style.display = 'none';
+  const kw = q.toLowerCase();
+  let html = '';
+  DATA.book.forEach(i => {
+    if (i.title.toLowerCase().includes(kw) || i.from.toLowerCase().includes(kw)) {
+      html += `<div class="bp" onclick="openArticle('book','${i.id}')">
+        <div class="bp-spine ${i.spine}"></div>
+        <div class="bp-body">
+          <div class="bp-from">${i.from}</div>
+          <div class="bp-title">${i.title}</div>
+          <div class="bp-date">${i.date}</div>
+          <div class="tags"><span class="tag tm">Sách</span></div>
+        </div></div>`;
+    }
+  });
+  DATA.film.forEach(i => {
+    if (i.title.toLowerCase().includes(kw) || i.genre.toLowerCase().includes(kw)) {
+      html += `<div class="fcard" onclick="openArticle('film','${i.id}')">
+        <div class="fcard-title">${i.title}</div>
+        <div class="fcard-meta">${i.date} · ${i.genre}</div>
+        <div class="tags"><span class="tag ta">Phim</span></div>
+      </div>`;
+    }
+  });
+  res.innerHTML = html || '<div style="padding:20px 0;text-align:center;font-size:12px;color:var(--ink3);font-weight:300">Không tìm thấy kết quả.</div>';
+}
+
+function closeSearchAndOpen(type, id) {
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.getElementById('searchInput').value = '';
+  openArticle(type, id);
+}
+
+// ── Init ──────────────────────────────────────────────
+goNav('home');
 </script>
+</body>
+</html>
