@@ -1,0 +1,235 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F0E8;--bg2:#EDE8DC;--bg3:#E4DDD0;
+  --ink:#2C2416;--ink2:#6B5E48;--ink3:#9C8E78;
+  --moss:#4A5C3A;--moss-l:#D6DFD0;
+  --amber:#A0732A;--amber-l:#F0E4C8;
+  --rule:rgba(44,36,22,0.12);
+}
+.w{background:var(--bg);max-width:360px;margin:0 auto;border-radius:12px;overflow:hidden;border:0.5px solid var(--rule);font-family:'DM Sans',sans-serif;color:var(--ink)}
+.bar{background:var(--bg);padding:16px 18px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--rule)}
+.logo{font-family:'Lora',serif;font-size:17px;font-weight:400;letter-spacing:-0.3px;color:var(--ink);font-style:italic}
+.logo span{font-style:normal;font-size:11px;font-family:'DM Sans',sans-serif;color:var(--ink3);font-weight:300;margin-left:4px}
+.icon-btn{width:28px;height:28px;border-radius:6px;border:0.5px solid var(--rule);background:var(--bg2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.tabs{background:var(--bg);display:flex;padding:0 18px;border-bottom:0.5px solid var(--rule);gap:20px}
+.tab{padding:10px 0;font-size:12px;font-weight:300;color:var(--ink3);cursor:pointer;border-bottom:1.5px solid transparent;letter-spacing:.3px}
+.tab.on{color:var(--moss);border-bottom-color:var(--moss);font-weight:400}
+.intro{padding:18px;background:var(--bg);border-bottom:0.5px solid var(--rule)}
+.intro p{font-size:12px;font-weight:300;color:var(--ink2);line-height:1.75}
+.intro strong{color:var(--ink);font-weight:400}
+.feat{background:var(--bg);padding:18px;margin-top:6px}
+.eyebrow{font-size:9px;letter-spacing:1.2px;color:var(--ink3);text-transform:uppercase;font-weight:400;margin-bottom:14px}
+.feat-row{display:flex;gap:14px;margin-bottom:14px}
+.book-spine{width:58px;height:84px;border-radius:3px;flex-shrink:0;display:flex;align-items:flex-end;padding:7px 6px;font-size:8.5px;font-weight:400;line-height:1.4;font-family:'Lora',serif;font-style:italic}
+.sp-a{background:#6B5E48;color:#EDE8DC}
+.sp-b{background:#4A5C3A;color:#D6DFD0}
+.sp-c{background:#A0732A;color:#F0E4C8}
+.sp-d{background:#3D4F30;color:#D6DFD0}
+.sp-e{background:#7A6040;color:#F0E4C8}
+.feat-info{flex:1}
+.feat-from{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:4px}
+.feat-title{font-family:'Lora',serif;font-size:15px;font-weight:400;line-height:1.45;color:var(--ink);margin-bottom:5px}
+.feat-date{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:10px}
+.blockquote{font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--ink2);line-height:1.7;padding-left:10px;border-left:1.5px solid var(--moss);margin-bottom:12px}
+.readmore{font-size:11px;color:var(--moss);font-weight:400;letter-spacing:.2px}
+.plist{background:var(--bg);padding:0 18px 4px;margin-top:6px}
+.plist-head{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:0.5px solid var(--rule)}
+.plist-title{font-size:11px;font-weight:400;letter-spacing:.5px;color:var(--ink);text-transform:uppercase}
+.plist-all{font-size:10px;color:var(--moss);font-weight:300}
+.bpost{display:flex;gap:12px;padding:13px 0;border-bottom:0.5px solid var(--rule)}
+.bpost:last-child{border-bottom:none;padding-bottom:4px}
+.bpost-spine{width:38px;height:56px;border-radius:2px;flex-shrink:0}
+.bpost-body{flex:1}
+.bpost-from{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:2px}
+.bpost-title{font-family:'Lora',serif;font-size:13px;font-weight:400;line-height:1.45;color:var(--ink);margin-bottom:3px}
+.bpost-date{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:5px}
+.bpost-snip{font-size:11px;color:var(--ink2);font-weight:300;line-height:1.6}
+.tags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.tag{font-size:9px;padding:2px 8px;border-radius:2px;font-weight:400;letter-spacing:.2px}
+.tag-moss{background:var(--moss-l);color:var(--moss)}
+.tag-amber{background:var(--amber-l);color:var(--amber)}
+.tag-neutral{background:var(--bg3);color:var(--ink2)}
+.film-feat{background:var(--bg);padding:18px;margin-top:6px}
+.film-banner{width:100%;height:120px;border-radius:4px;background:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;padding:14px;margin-bottom:14px;position:relative;overflow:hidden}
+.film-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%)}
+.film-genre{position:absolute;top:10px;left:10px;background:var(--moss);color:#D6DFD0;font-size:9px;padding:3px 9px;border-radius:2px;letter-spacing:.3px;z-index:1}
+.film-banner-title{font-family:'Lora',serif;font-size:17px;font-weight:400;color:#F5F0E8;position:relative;z-index:1;margin-bottom:2px}
+.film-banner-sub{font-size:10px;color:rgba(245,240,232,0.55);font-weight:300;position:relative;z-index:1}
+.film-watched{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:10px}
+.film-body{font-size:13px;font-weight:300;color:var(--ink);line-height:1.8;margin-bottom:10px}
+.film-body .hook{font-family:'Lora',serif;font-style:italic;color:var(--moss);font-weight:400}
+.film-chips{display:flex;gap:5px;flex-wrap:wrap}
+.fchip{font-size:9px;padding:3px 9px;border-radius:2px;border:0.5px solid var(--rule);color:var(--ink2);font-weight:300;letter-spacing:.2px;background:var(--bg2)}
+.flist{background:var(--bg);padding:0 18px 4px;margin-top:6px}
+.fcard{padding:14px 0;border-bottom:0.5px solid var(--rule)}
+.fcard:last-child{border-bottom:none;padding-bottom:4px}
+.fcard-title{font-family:'Lora',serif;font-size:14px;font-weight:400;color:var(--ink);margin-bottom:3px}
+.fcard-meta{font-size:10px;color:var(--ink3);font-weight:300;margin-bottom:8px}
+.fcard-body{font-size:12px;font-weight:300;color:var(--ink2);line-height:1.75}
+.fcard-body .em{color:var(--ink);font-family:'Lora',serif;font-style:italic;font-weight:400}
+.fcard-tags{margin-top:7px;display:flex;gap:5px;flex-wrap:wrap}
+
+/* NAV mới */
+.nav{background:var(--bg2);border-top:0.5px solid var(--rule);padding:12px 0 10px;display:flex;justify-content:space-around;margin-top:6px}
+.ni{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:.55;transition:opacity .2s}
+.ni.on{opacity:1}
+.ni svg{display:block}
+.ni-label{font-size:9px;font-weight:300;color:var(--ink2);letter-spacing:.3px}
+.ni.on .ni-label{color:var(--moss);font-weight:400}
+
+.pane{display:none}.pane.on{display:block}
+</style>
+
+<div class="w">
+  <div class="bar">
+    <div class="logo">trang của mình <span>/ một góc nhỏ</span></div>
+    <div class="icon-btn">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="#9C8E78" stroke-width="1.4"/><path d="M10 10L13.5 13.5" stroke="#9C8E78" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on" id="tab-book" onclick="sw('book')">Góc đọc sách</div>
+    <div class="tab" id="tab-film" onclick="sw('film')">Phim tài liệu</div>
+  </div>
+
+  <div class="pane on" id="pane-book">
+    <div class="intro"><p>Những gì mình đọc thấy đáng nghĩ — <strong>chắt lọc lại để chia sẻ.</strong> Không tóm tắt, chỉ là những ý mình thấy có giá trị.</p></div>
+    <div class="feat">
+      <div class="eyebrow">Mới nhất</div>
+      <div class="feat-row">
+        <div class="book-spine sp-a">Thinking,<br>Fast &amp;<br>Slow</div>
+        <div class="feat-info">
+          <div class="feat-from">Daniel Kahneman</div>
+          <div class="feat-title">Tại sao chúng ta tin vào điều mình muốn tin?</div>
+          <div class="feat-date">28/04/2025</div>
+        </div>
+      </div>
+      <div class="blockquote">Não bộ không tìm kiếm sự thật — nó tìm kiếm sự nhất quán. Và đó là lý do chúng ta rất giỏi tự lừa mình.</div>
+      <div class="readmore">Đọc tiếp →</div>
+    </div>
+    <div class="plist">
+      <div class="plist-head"><div class="plist-title">Các bài khác</div><div class="plist-all">Xem tất cả</div></div>
+      <div class="bpost">
+        <div class="bpost-spine sp-b"></div>
+        <div class="bpost-body">
+          <div class="bpost-from">Sapiens · Harari</div>
+          <div class="bpost-title">Tiền tệ là gì nếu không phải là niềm tin tập thể?</div>
+          <div class="bpost-date">15/03/2025</div>
+          <div class="bpost-snip">Một đoạn mình đọc xong cứ ngồi ngẩn người mãi...</div>
+          <div class="tags"><span class="tag tag-moss">Lịch sử</span><span class="tag tag-moss">Triết học</span></div>
+        </div>
+      </div>
+      <div class="bpost">
+        <div class="bpost-spine sp-e"></div>
+        <div class="bpost-body">
+          <div class="bpost-from">Ikigai · García & Miralles</div>
+          <div class="bpost-title">Mục đích sống không phải thứ bạn tìm — mà là thứ bạn sống ra</div>
+          <div class="bpost-date">02/02/2025</div>
+          <div class="bpost-snip">Người Okinawa không có từ nào tương đương "về hưu"...</div>
+          <div class="tags"><span class="tag tag-amber">Lối sống</span></div>
+        </div>
+      </div>
+      <div class="bpost">
+        <div class="bpost-spine sp-d"></div>
+        <div class="bpost-body">
+          <div class="bpost-from">Atomic Habits · Clear</div>
+          <div class="bpost-title">Bản sắc trước, thói quen sau — bạn đang làm ngược rồi</div>
+          <div class="bpost-date">10/01/2025</div>
+          <div class="bpost-snip">Thay vì "tôi muốn chạy bộ", hãy nói "tôi là người chạy bộ"...</div>
+          <div class="tags"><span class="tag tag-neutral">Tâm lý học</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane" id="pane-film">
+    <div class="intro"><p>Không chấm điểm, không so sánh — chỉ là <strong>mình xem xong và nghĩ gì.</strong> Đôi khi đồng ý với đạo diễn, đôi khi không.</p></div>
+    <div class="film-feat">
+      <div class="eyebrow">Gần đây mình xem</div>
+      <div class="film-banner">
+        <div class="film-genre">Thiên nhiên</div>
+        <div class="film-banner-title">My Octopus Teacher</div>
+        <div class="film-banner-sub">2020 · Netflix · 85 phút</div>
+      </div>
+      <div class="film-watched">Xem ngày 01/05/2025</div>
+      <div class="film-body"><span class="hook">Mình không nghĩ một con bạch tuộc lại khiến mình khóc.</span> Bộ phim không cố thuyết phục bạn bảo vệ môi trường — nó chỉ để bạn ngồi nhìn, và tự cảm nhận. Có lẽ đó là cách hiệu quả nhất.</div>
+      <div class="film-chips">
+        <span class="fchip">Khiến mình im lặng</span>
+        <span class="fchip">Nên xem một mình</span>
+        <span class="fchip">Netflix</span>
+      </div>
+    </div>
+    <div class="flist">
+      <div class="plist-head"><div class="plist-title">Những phim đã xem</div><div class="plist-all">Xem tất cả</div></div>
+      <div class="fcard">
+        <div class="fcard-title">The Social Dilemma</div>
+        <div class="fcard-meta">Xem ngày 14/04/2025 · Công nghệ</div>
+        <div class="fcard-body">Xem xong mình xóa notification của hầu hết app. <span class="em">Không phải vì sợ — mà vì mình không muốn bị dắt mũi nữa.</span></div>
+        <div class="fcard-tags"><span class="tag tag-neutral">Gây khó chịu theo hướng tốt</span></div>
+      </div>
+      <div class="fcard">
+        <div class="fcard-title">13th</div>
+        <div class="fcard-meta">Xem ngày 22/02/2025 · Xã hội</div>
+        <div class="fcard-body"><span class="em">Mình xem mà liên tục phải dừng lại để thở.</span> Không phải vì nó quá nặng — mà vì nó quá rõ ràng, và cái rõ ràng đó mới đáng sợ.</div>
+        <div class="fcard-tags"><span class="tag tag-moss">Netflix</span></div>
+      </div>
+      <div class="fcard">
+        <div class="fcard-title">Free Solo</div>
+        <div class="fcard-meta">Xem ngày 05/01/2025 · Thể thao</div>
+        <div class="fcard-body">Câu hỏi phim để lại không phải "anh ấy có điên không" — mà là <span class="em">ranh giới giữa đam mê và liều lĩnh nằm ở đâu?</span> Mình vẫn chưa trả lời được.</div>
+        <div class="fcard-tags"><span class="tag tag-amber">Triết lý sống</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV với SVG icon vẽ tay -->
+  <div class="nav">
+    <div class="ni on" onclick="setNav(this)">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M3 9.5L10 3.5L17 9.5V17H13V13H7V17H3V9.5Z" stroke="#4A5C3A" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <div class="ni-label">trang chủ</div>
+    </div>
+    <div class="ni" onclick="setNav(this)">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="9" cy="9" r="5.5" stroke="#6B5E48" stroke-width="1.2"/>
+        <path d="M13.5 13.5L17 17" stroke="#6B5E48" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="ni-label">tìm kiếm</div>
+    </div>
+    <div class="ni" onclick="setNav(this)">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M5 3.5H15V17.5L10 14.5L5 17.5V3.5Z" stroke="#6B5E48" stroke-width="1.2" stroke-linejoin="round"/>
+      </svg>
+      <div class="ni-label">lưu lại</div>
+    </div>
+    <div class="ni" onclick="setNav(this)">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="7.5" r="3" stroke="#6B5E48" stroke-width="1.2"/>
+        <path d="M3.5 17C3.5 14 6.5 11.5 10 11.5C13.5 11.5 16.5 14 16.5 17" stroke="#6B5E48" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      <div class="ni-label">về mình</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function sw(t){
+  document.querySelectorAll('.tab,.pane').forEach(e=>e.classList.remove('on'));
+  document.getElementById('tab-'+t).classList.add('on');
+  document.getElementById('pane-'+t).classList.add('on');
+}
+function setNav(el){
+  document.querySelectorAll('.ni').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  const stroke = '#4A5C3A';
+  el.querySelectorAll('path,circle').forEach(p=>{p.setAttribute('stroke',stroke)});
+  document.querySelectorAll('.ni:not(.on)').forEach(ni=>{
+    ni.querySelectorAll('path,circle').forEach(p=>p.setAttribute('stroke','#6B5E48'));
+  });
+}
+</script>
