@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>langlang.me — đọc chậm, nghĩ sâu</title>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23F5F0E8'/%3E%3Cpath d='M16 4 C10 4 6 9 6 15 C6 20 9 24 14 26 C14 26 13 22 15 19 C17 16 21 15 24 12 C26 10 26 7 24 5 C22 3 19 4 16 4Z' fill='%234A5C3A'/%3E%3Cpath d='M15 19 C15 23 14 27 13 28' stroke='%234A5C3A' stroke-width='1.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23F5F0E8'/><ellipse cx='16' cy='9.5' rx='2.2' ry='4.5' fill='white' stroke='%23D8D0C0' stroke-width='0.4'/><ellipse cx='16' cy='9.5' rx='2.2' ry='4.5' fill='white' stroke='%23D8D0C0' stroke-width='0.4' transform='rotate(45 16 16)'/><ellipse cx='16' cy='9.5' rx='2.2' ry='4.5' fill='white' stroke='%23D8D0C0' stroke-width='0.4' transform='rotate(90 16 16)'/><ellipse cx='16' cy='9.5' rx='2.2' ry='4.5' fill='white' stroke='%23D8D0C0' stroke-width='0.4' transform='rotate(135 16 16)'/><ellipse cx='16' cy='9.5' rx='2.2' ry='4.5' fill='white' stroke='%23D8D0C0' stroke-width='0.4' transform='rotate(180 16 16)'/><ellipse cx='16' cy='9.5' rx='2.2' ry='4.5' fill='white' stroke='%23D8D0C0' stroke-width='0.4' transform='rotate(225 16 16)'/><ellipse cx='16' cy='9.5' rx='2.2' ry='4.5' fill='white' stroke='%23D8D0C0' stroke-width='0.4' transform='rotate(270 16 16)'/><ellipse cx='16' cy='9.5' rx='2.2' ry='4.5' fill='white' stroke='%23D8D0C0' stroke-width='0.4' transform='rotate(315 16 16)'/><circle cx='16' cy='16' r='4.5' fill='%23F2C94C'/><circle cx='16' cy='16' r='2.8' fill='%23E5B93A'/></svg>">
 <meta name="description" content="Những góc nhìn nhẹ nhàng về tâm lý, một nơi để đọc chậm, nghĩ sâu và để hiểu hơn về chính mình.">
 <meta name="keywords" content="review sách, review phim tài liệu, tải ảnh nền điện thoại, iphone wallpaper, tâm lý học, sách hay, phim tài liệu hay, lockscreen wallpaper, hình nền điện thoại đẹp">
 <meta name="author" content="langlang.me">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="langlang-me">
 <meta property="og:description" content="Những góc nhìn nhẹ nhàng về tâm lý, một nơi để đọc chậm, nghĩ sâu để hiểu hơn về chính mình.">
 <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Crect width='1200' height='630' fill='%23F5F0E8'/%3E%3Cellipse cx='600' cy='315' rx='180' ry='180' fill='%23D6DFD0'/%3E%3Cpath d='M600 160 C520 160 460 220 460 300 C460 370 500 420 560 445 C560 445 545 400 575 370 C605 340 650 335 680 305 C705 280 705 245 685 220 C665 195 635 160 600 160Z' fill='%234A5C3A'/%3E%3Cpath d='M575 370 C575 415 560 455 550 465' stroke='%234A5C3A' stroke-width='8' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
-<meta property="og:type" content="blog cá nhân">
+<meta property="og:type" content="article">
 <meta property="og:url" content="https://langlang-me.netlify.app">
 <meta property="og:site_name" content="langlang.me">
 <meta name="twitter:card" content="summary_large_image">
@@ -233,7 +233,7 @@ body{font-family:'Nunito',sans-serif;font-weight:300;background:#D8D3C8;color:va
 .wall-thumb{aspect-ratio:9/16;background:var(--bg3);position:relative;overflow:hidden;cursor:pointer}
 .wall-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
 .wall-thumb:active img{transform:scale(1.05)}
-.wall-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:24px;opacity:.35}
+.wall-thumb-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:24px;opacity:.4;position:absolute;inset:0}
 .wall-viewer{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.93);flex-direction:column;align-items:center;justify-content:center}
 .wall-viewer.open{display:flex}
 .wall-viewer-img-placeholder{width:220px;height:390px;background:linear-gradient(135deg,var(--bg3),var(--bg2));border-radius:14px;margin-bottom:26px;display:flex;align-items:center;justify-content:center;font-size:52px;opacity:.5}
@@ -329,18 +329,12 @@ body{font-family:'Nunito',sans-serif;font-weight:300;background:#D8D3C8;color:va
 
   <!-- TABS -->
   <div class="sticky-tabs" id="mainTabs">
-    <div class="ctab on" id="ctab-all"  onclick="switchTab('all')">Tất cả</div>
-    <div class="ctab"    id="ctab-book" onclick="switchTab('book')">Một chút từ sách</div>
+    <div class="ctab on" id="ctab-book" onclick="switchTab('book')">Một chút từ sách</div>
     <div class="ctab"    id="ctab-film" onclick="switchTab('film')">Một ít từ phim</div>
   </div>
 
-  <!-- TẤT CẢ -->
-  <div class="page on" id="page-all">
-    <div id="all-content"></div>
-  </div>
-
   <!-- SÁCH -->
-  <div class="page" id="page-book">
+  <div class="page on" id="page-book">
     <div id="book-content"></div>
     <div class="load-more" id="load-book" style="display:none">
       <div class="loader-dot"></div><div class="loader-dot"></div><div class="loader-dot"></div>
@@ -383,21 +377,43 @@ body{font-family:'Nunito',sans-serif;font-weight:300;background:#D8D3C8;color:va
       <div class="wall-header-title">Tặng bạn 🌿</div>
       <div class="wall-header-sub">Mỗi tháng mình chọn một vài hình nền cho điện thoại — nhẹ nhàng, dùng được lâu. Bấm vào để tải về.</div>
     </div>
-    <div id="wallpaper-sections"></div>
+    <div id="wallpaper-sections" style="padding-bottom:90px"></div>
   </div>
 
   <!-- VỀ MÌNH -->
   <div class="page" id="page-about">
     <div class="about-header">
-      <div class="about-avatar">m</div>
+      <div class="about-avatar" style="background:#F5F0E8;overflow:visible;position:relative;">
+  <svg width="76" height="76" viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" style="display:block">
+    <rect width="76" height="76" rx="38" fill="#F5F0E8"/>
+    <!-- petals -->
+    <ellipse cx="38" cy="18" rx="5.5" ry="11" fill="white" stroke="#E0D8C8" stroke-width="1"/>
+    <ellipse cx="38" cy="18" rx="5.5" ry="11" fill="white" stroke="#E0D8C8" stroke-width="1" transform="rotate(45 38 38)"/>
+    <ellipse cx="38" cy="18" rx="5.5" ry="11" fill="white" stroke="#E0D8C8" stroke-width="1" transform="rotate(90 38 38)"/>
+    <ellipse cx="38" cy="18" rx="5.5" ry="11" fill="white" stroke="#E0D8C8" stroke-width="1" transform="rotate(135 38 38)"/>
+    <ellipse cx="38" cy="18" rx="5.5" ry="11" fill="white" stroke="#E0D8C8" stroke-width="1" transform="rotate(180 38 38)"/>
+    <ellipse cx="38" cy="18" rx="5.5" ry="11" fill="white" stroke="#E0D8C8" stroke-width="1" transform="rotate(225 38 38)"/>
+    <ellipse cx="38" cy="18" rx="5.5" ry="11" fill="white" stroke="#E0D8C8" stroke-width="1" transform="rotate(270 38 38)"/>
+    <ellipse cx="38" cy="18" rx="5.5" ry="11" fill="white" stroke="#E0D8C8" stroke-width="1" transform="rotate(315 38 38)"/>
+    <!-- center -->
+    <circle cx="38" cy="38" r="11" fill="#F2C94C"/>
+    <circle cx="38" cy="38" r="7" fill="#E5B93A"/>
+    <!-- texture dots -->
+    <circle cx="35" cy="35" r="1" fill="#D4A82A" opacity="0.7"/>
+    <circle cx="41" cy="36" r="1" fill="#D4A82A" opacity="0.7"/>
+    <circle cx="38" cy="32" r="1" fill="#D4A82A" opacity="0.7"/>
+    <circle cx="36" cy="41" r="1" fill="#D4A82A" opacity="0.7"/>
+    <circle cx="40" cy="40" r="1" fill="#D4A82A" opacity="0.7"/>
+  </svg>
+</div>
       <div class="about-name">trang của mình</div>
       <div class="about-tagline">Đọc sách · Xem phim tài liệu<br>và viết lại những gì mình nghĩ</div>
     </div>
     <div style="border-bottom:0.5px solid var(--rule)">
-      <div class="stat-row">
+      <div class="stat-row" id="statRow">
         <div class="stat"><div class="stat-num">4</div><div class="stat-label">bài sách</div></div>
         <div class="stat"><div class="stat-num">4</div><div class="stat-label">phim đã xem</div></div>
-        <div class="stat"><div class="stat-num" id="statSaved">0</div><div class="stat-label">đã lưu</div></div>
+        <div class="stat" id="statSavedBlock"><div class="stat-num" id="statSaved">0</div><div class="stat-label">đã lưu</div></div>
       </div>
     </div>
     <div class="about-section">
@@ -415,12 +431,11 @@ body{font-family:'Nunito',sans-serif;font-weight:300;background:#D8D3C8;color:va
         <span class="tag tn">Lịch sử</span><span class="tag tt">Xã hội</span>
       </div>
     </div>
-    <div class="about-section" style="border-bottom:none">
+    <div class="about-section" style="border-bottom:none;padding-bottom:90px">
       <div class="about-label">Liên hệ</div>
       <div class="about-text"><p>Nếu bạn có quyển sách hay bộ phim muốn gợi ý — mình rất vui được nghe.</p></div>
       <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-        <span class="fchip" style="cursor:pointer">📧 Email</span>
-        <span class="fchip" style="cursor:pointer">Instagram</span>
+        <a href="mailto:anna.nguyen0519@gmail.com" class="fchip" style="cursor:pointer;text-decoration:none">📧 Email</a>
       </div>
     </div>
   </div>
@@ -610,23 +625,23 @@ const DATA = {
 
 const WALLPAPERS = [
   {month:'Tháng 5, 2025',items:[
-    {id:'w1',emoji:'🌿',label:'Xanh rêu sáng',file:'wall-may-01.jpg'},
-    {id:'w2',emoji:'🌸',label:'Hoa nhạt',file:'wall-may-02.jpg'},
-    {id:'w3',emoji:'🌊',label:'Biển xanh',file:'wall-may-03.jpg'},
-    {id:'w4',emoji:'🍂',label:'Lá thu',file:'wall-may-04.jpg'},
-    {id:'w5',emoji:'☁️',label:'Mây trắng',file:'wall-may-05.jpg'},
-    {id:'w6',emoji:'🌾',label:'Đồng lúa',file:'wall-may-06.jpg'},
+    {id:'w1',emoji:'🌿',label:'Sáng sớm tháng 5',file:'https://images.unsplash.com/photo-1490750967868-88df5691cc4f?w=450&h=800&q=85&fit=crop&crop=center'},
+    {id:'w2',emoji:'🌸',label:'Hoa dại',file:'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=450&h=800&q=85&fit=crop&crop=center'},
+    {id:'w3',emoji:'🌊',label:'Biển mùa hạ',file:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=450&h=800&q=85&fit=crop&crop=center'},
+    {id:'w4',emoji:'🌾',label:'Đồng cỏ xanh',file:'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=450&h=800&q=85&fit=crop&crop=center'},
+    {id:'w5',emoji:'☀️',label:'Nắng chiều',file:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=450&h=800&q=85&fit=crop&crop=center'},
+    {id:'w6',emoji:'🌼',label:'Cánh đồng hoa',file:'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=450&h=800&q=85&fit=crop&crop=center'},
   ]},
   {month:'Tháng 4, 2025',items:[
-    {id:'w7',emoji:'🌙',label:'Đêm xanh',file:'wall-apr-01.jpg'},
-    {id:'w8',emoji:'🍃',label:'Lá xanh',file:'wall-apr-02.jpg'},
-    {id:'w9',emoji:'🌅',label:'Bình minh',file:'wall-apr-03.jpg'},
+    {id:'w7',emoji:'🍃',label:'Lá xanh mướt',file:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=450&h=800&q=85&fit=crop&crop=center'},
+    {id:'w8',emoji:'🌅',label:'Bình minh',file:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=450&h=800&q=85&fit=crop&crop=center'},
+    {id:'w9',emoji:'🌙',label:'Chiều tím',file:'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=450&h=800&q=85&fit=crop&crop=center'},
   ]}
 ];
 
 /* ── STATE ───────────────────────────── */
 let savedIds = JSON.parse(localStorage.getItem('saved')||'[]');
-let currentNav = 'home', currentTab = 'all', sfFilter = 'all';
+let currentNav = 'home', currentTab = 'book', sfFilter = 'all';
 const BATCH = 4;
 let bookPage=0, filmPage=0, bookDone=false, filmDone=false;
 let isLoadingBook=false, isLoadingFilm=false;
@@ -719,8 +734,13 @@ function goNav(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
   document.getElementById('mainTabs').style.display=page==='home'?'flex':'none';
-  if(page==='home') document.getElementById('page-'+currentTab).classList.add('on');
-  else document.getElementById('page-'+page).classList.add('on');
+  if(page==='home'){
+    document.getElementById('page-'+currentTab).classList.add('on');
+    if(currentTab==='book') renderBookPage();
+    if(currentTab==='film') renderFilmPage();
+  } else {
+    document.getElementById('page-'+page).classList.add('on');
+  }
   document.getElementById('nav-'+page).classList.add('on');
   if(page==='gift') renderWallpapers();
   if(page==='search') setTimeout(()=>document.getElementById('searchInput').focus(),150);
@@ -735,7 +755,6 @@ function switchTab(t){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.getElementById('page-'+t).classList.add('on');
   window.scrollTo(0,0);
-  if(t==='all') renderAll();
   if(t==='book') renderBookPage();
   if(t==='film') renderFilmPage();
 }
@@ -1003,6 +1022,9 @@ function renderWallpapers(){
     <div class="month-label">${m.month}</div>
     <div class="wall-grid">
       ${m.items.map(w=>`<div class="wall-thumb" onclick="openWall('${w.id}','${w.emoji}','${w.file}')">
+        <img src="${w.file}" alt="${w.label}" loading="lazy"
+          style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;transition:transform .3s"
+          onerror="this.parentElement.querySelector('.wall-thumb-placeholder').style.display='flex';this.style.display='none'">
         <div class="wall-thumb-placeholder">${w.emoji}</div>
       </div>`).join('')}
     </div>`).join('');
@@ -1010,7 +1032,10 @@ function renderWallpapers(){
 let currentWallFile='';
 function openWall(id,emoji,file){
   currentWallFile=file;
-  document.getElementById('wallViewerContent').innerHTML=`<div class="wall-viewer-img-placeholder">${emoji}</div>`;
+  const isUrl=file.startsWith('http');
+  document.getElementById('wallViewerContent').innerHTML=isUrl
+    ?`<img src="${file}" alt="" style="width:220px;height:390px;object-fit:cover;border-radius:14px;margin-bottom:26px;display:block">`
+    :`<div class="wall-viewer-img-placeholder">${emoji}</div>`;
   document.getElementById('wallViewer').classList.add('open');
 }
 function closeWall(){document.getElementById('wallViewer').classList.remove('open')}
@@ -1021,22 +1046,13 @@ document.getElementById('wallDlBtn').addEventListener('click',()=>{
 });
 
 /* ── INIT ────────────────────────────── */
-renderAll();
 goNav('home');
+// Hide saved stat when 0
+(function updateSavedStat(){
+  const count = savedIds.length;
+  const block = document.getElementById('statSavedBlock');
+  if(block) block.style.display = count === 0 ? 'none' : '';
+})();
 </script>
-  
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
-  
 </body>
 </html>
