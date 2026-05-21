@@ -6,17 +6,136 @@ media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
 collections:
-  - name: "posts"
-    label: "Posts"
-    folder: "posts"
+
+  # ─── SÁCH ────────────────────────────────────────────
+  - name: "books"
+    label: "Sách"
+    folder: "content/books"
     create: true
-    slug: "{{slug}}"
-
+    slug: "{{fields.id}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
+      - label: "ID (dùng làm URL slug, không dấu, không cách)"
+        name: "id"
+        widget: "string"
+        hint: "Ví dụ: think-fast, sapiens, atomic-habits"
 
-      - { label: "Date", name: "date", widget: "datetime" }
+      - label: "Loại"
+        name: "type"
+        widget: "hidden"
+        default: "book"
 
-      - { label: "Cover Image", name: "cover", widget: "image" }
+      - label: "Tên tác giả / nguồn"
+        name: "from"
+        widget: "string"
+        hint: "Ví dụ: Daniel Kahneman"
 
-      - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Tiêu đề bài viết"
+        name: "title"
+        widget: "string"
+
+      - label: "Ngày đăng"
+        name: "date"
+        widget: "date"
+        format: "DD/MM/YYYY"
+
+      - label: "Lượt đọc"
+        name: "views"
+        widget: "number"
+        default: 0
+
+      - label: "Màu bìa sách"
+        name: "spine"
+        widget: "select"
+        options:
+          - { label: "Nâu đất (sp-a)", value: "sp-a" }
+          - { label: "Xanh rêu (sp-b)", value: "sp-b" }
+          - { label: "Amber (sp-c)", value: "sp-c" }
+          - { label: "Xanh đậm (sp-d)", value: "sp-d" }
+          - { label: "Nâu vàng (sp-e)", value: "sp-e" }
+          - { label: "Đỏ đất (sp-f)", value: "sp-f" }
+        default: "sp-a"
+
+      - label: "Chữ trên bìa sách"
+        name: "spineText"
+        widget: "string"
+        hint: "Ví dụ: Thinking,\\nFast &\\nSlow — dùng \\n để xuống dòng"
+
+      - label: "Snippet (câu trích dẫn ngắn)"
+        name: "snip"
+        widget: "text"
+
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        hint: "Ví dụ: Tâm lý học, Triết học, Lối sống"
+
+      - label: "Nội dung bài viết"
+        name: "body"
+        widget: "markdown"
+
+  # ─── PHIM ────────────────────────────────────────────
+  - name: "films"
+    label: "Phim"
+    folder: "content/films"
+    create: true
+    slug: "{{fields.id}}"
+    fields:
+      - label: "ID (dùng làm URL slug, không dấu, không cách)"
+        name: "id"
+        widget: "string"
+        hint: "Ví dụ: my-octopus-teacher, social-dilemma"
+
+      - label: "Loại"
+        name: "type"
+        widget: "hidden"
+        default: "film"
+
+      - label: "Thể loại phim"
+        name: "genre"
+        widget: "select"
+        options:
+          - "Thiên nhiên"
+          - "Công nghệ"
+          - "Xã hội"
+          - "Thể thao"
+          - "Lịch sử"
+          - "Khoa học"
+          - "Tâm lý"
+          - "Nghệ thuật"
+
+      - label: "Tiêu đề phim"
+        name: "title"
+        widget: "string"
+
+      - label: "Meta (năm · nền tảng · thời lượng)"
+        name: "meta"
+        widget: "string"
+        hint: "Ví dụ: 2020 · Netflix · 85 phút"
+
+      - label: "Ngày xem"
+        name: "date"
+        widget: "date"
+        format: "DD/MM/YYYY"
+
+      - label: "Lượt đọc"
+        name: "views"
+        widget: "number"
+        default: 0
+
+      - label: "Màu banner"
+        name: "color"
+        widget: "color"
+        default: "#2C4A5C"
+
+      - label: "Snippet (câu mở đầu)"
+        name: "snip"
+        widget: "text"
+
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        hint: "Ví dụ: Netflix, Nên xem một mình, Gây khó chịu theo hướng tốt"
+
+      - label: "Nội dung bài viết"
+        name: "body"
+        widget: "markdown"
