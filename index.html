@@ -517,7 +517,37 @@ body{font-family:'Nunito',sans-serif;font-weight:300;background:#D8D3C8;color:va
 /* ══════════════════════════════════════════
    DATA
 ══════════════════════════════════════════ */
-const DATA = {
+/* ── DATA — loaded from data.json via build script ── */
+window.DATA = { book: [], film: [] }; // placeholder, overwritten after fetch
+
+function markdownToHtml(md) {
+  if (!md) return '';
+  const lines = md.split('\n');
+  let html = '';
+  let inPara = false;
+  for (let line of lines) {
+    if (line.startsWith('## ')) {
+      if (inPara) { html += '</p>'; inPara = false; }
+      html += `<h2>${line.slice(3)}</h2>`;
+    } else if (line.startsWith('> ')) {
+      if (inPara) { html += '</p>'; inPara = false; }
+      html += `<blockquote>${line.slice(2).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>')}</blockquote>`;
+    } else if (line.trim() === '') {
+      if (inPara) { html += '</p>'; inPara = false; }
+    } else {
+      const formatted = line
+        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g,'<em>$1</em>');
+      if (!inPara) { html += '<p>'; inPara = true; }
+      else html += ' ';
+      html += formatted;
+    }
+  }
+  if (inPara) html += '</p>';
+  return html;
+}
+
+const FALLBACK_DATA = {
   book:[
     {
       id:'think-fast',spine:'sp-a',spineText:'Thinking,\nFast &\nSlow',
@@ -622,6 +652,26 @@ const DATA = {
     }
   ]
 };
+
+async function loadData() {
+  try {
+    const res = await fetch('/data.json?v=' + Date.now());
+    if (!res.ok) throw new Error('data.json not found');
+    const raw = await res.json();
+    // Convert body markdown → html cho từng item
+    ['book','film'].forEach(type => {
+      (raw[type] || []).forEach(item => {
+        item.content = markdownToHtml(item.body || '');
+      });
+    });
+    window.DATA = raw;
+  } catch(e) {
+    console.warn('data.json fetch failed, using fallback hardcoded data:', e.message);
+    // Fallback: giữ nguyên DATA cũ (hardcode) nếu chưa có data.json
+    window.DATA = FALLBACK_DATA;
+  }
+}
+
 
 const WALLPAPERS = [
   {month:'Tháng 5, 2025',items:[
@@ -764,8 +814,8 @@ function renderAll(){
   const el=document.getElementById('all-content');
 
   // sách section — featured first + 2 more
-  const bookFeat = DATA.book[0];
-  const bookRest = DATA.book.slice(1,3);
+  const bookFeat = window.DATA.book[0];
+  const bookRest = window.DATA.book.slice(1,3);
   const booksHtml=`
     <div class="section" style="padding-bottom:16px">
       <div class="eyebrow">Mới nhất</div>
@@ -780,8 +830,8 @@ function renderAll(){
     </div>`;
 
   // phim section — featured first + 2 more
-  const filmFeat = DATA.film[0];
-  const filmRest = DATA.film.slice(1,3);
+  const filmFeat = window.DATA.film[0];
+  const filmRest = window.DATA.film.slice(1,3);
   const filmsHtml=`
     <div class="section" style="padding-bottom:16px">
       <div class="eyebrow">Gần đây mình xem</div>
@@ -841,7 +891,7 @@ function loadBookBatch(){
   document.getElementById('load-book').style.display='flex';
   setTimeout(()=>{
     const start=bookPage*BATCH;
-    const slice=DATA.book.slice(start,start+BATCH);
+    const slice=window.DATA.book.slice(start,start+BATCH);
     if(!slice.length){bookDone=true;document.getElementById('load-book').style.display='none';isLoadingBook=false;return;}
     const el=document.getElementById('book-content');
     if(bookPage===0){
@@ -866,7 +916,7 @@ function loadBookBatch(){
       slice.forEach(i=>{wrap.insertAdjacentHTML('beforeend',bookListCard(i,false));});
     }
     bookPage++;
-    if(bookPage*BATCH>=DATA.book.length) bookDone=true;
+    if(bookPage*BATCH>=window.DATA.book.length) bookDone=true;
     document.getElementById('load-book').style.display=bookDone?'none':'flex';
     isLoadingBook=false;
   },500);
@@ -885,7 +935,7 @@ function loadFilmBatch(){
   document.getElementById('load-film').style.display='flex';
   setTimeout(()=>{
     const start=filmPage*BATCH;
-    const slice=DATA.film.slice(start,start+BATCH);
+    const slice=window.DATA.film.slice(start,start+BATCH);
     if(!slice.length){filmDone=true;document.getElementById('load-film').style.display='none';isLoadingFilm=false;return;}
     const el=document.getElementById('film-content');
     if(filmPage===0){
@@ -909,7 +959,7 @@ function loadFilmBatch(){
       slice.forEach(i=>{wrap.insertAdjacentHTML('beforeend',filmListCard(i,false));});
     }
     filmPage++;
-    if(filmPage*BATCH>=DATA.film.length) filmDone=true;
+    if(filmPage*BATCH>=window.DATA.film.length) filmDone=true;
     document.getElementById('load-film').style.display=filmDone?'none':'flex';
     isLoadingFilm=false;
   },500);
@@ -924,7 +974,7 @@ window.addEventListener('scroll',()=>{
 
 /* ── ARTICLE OPEN ────────────────────── */
 function openArticle(type,id){
-  const item=DATA[type].find(i=>i.id===id);
+  const item=window.DATA[type].find(i=>i.id===id);
   if(!item)return;
   const isBook=type==='book';
   const badge=isBook?`<span class="tag tm">Sách</span>`:`<span class="tag ta">${item.genre}</span>`;
@@ -977,7 +1027,7 @@ function shareArticle(id,title){
 function openList(type){
   const isBook=type==='book';
   document.getElementById('listTitle').textContent=isBook?'Tất cả bài sách':'Tất cả phim đã xem';
-  const items=DATA[type];
+  const items=window.DATA[type];
   document.getElementById('listContent').innerHTML=items.map((item,i)=>
     isBook?bookListCard(item,i===0&&false):filmListCard(item,false)
   ).join('');
@@ -998,13 +1048,13 @@ function doSearch(q){
   q=q.trim().toLowerCase();
   if(!q&&sfFilter==='all'){el.innerHTML='<div class="search-hint">Gõ để tìm bài viết và phim tài liệu...</div>';return;}
   let results=[];
-  DATA.book.forEach(i=>{
+  window.DATA.book.forEach(i=>{
     if(sfFilter==='film')return;
     if(sfFilter!=='all'&&sfFilter!=='book'&&!i.tags.some(t=>t.toLowerCase().includes(sfFilter)))return;
     if(!q||i.title.toLowerCase().includes(q)||i.from.toLowerCase().includes(q)||i.tags.some(t=>t.toLowerCase().includes(q)))
       results.push({type:'book',item:i});
   });
-  DATA.film.forEach(i=>{
+  window.DATA.film.forEach(i=>{
     if(sfFilter==='book')return;
     if(sfFilter!=='all'&&sfFilter!=='film'&&!i.tags.some(t=>t.toLowerCase().includes(sfFilter)))return;
     if(!q||i.title.toLowerCase().includes(q)||i.genre.toLowerCase().includes(q)||i.tags.some(t=>t.toLowerCase().includes(q)))
@@ -1046,13 +1096,13 @@ document.getElementById('wallDlBtn').addEventListener('click',()=>{
 });
 
 /* ── INIT ────────────────────────────── */
-goNav('home');
-// Hide saved stat when 0
-(function updateSavedStat(){
+loadData().then(() => {
+  goNav('home');
+  // Hide saved stat when 0
   const count = savedIds.length;
   const block = document.getElementById('statSavedBlock');
   if(block) block.style.display = count === 0 ? 'none' : '';
-})();
+});
 </script>
 </body>
 </html>
